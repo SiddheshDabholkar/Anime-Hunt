@@ -1,12 +1,13 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import Background from '../../components/Background';
+import Mytext from '../../components/Mytext';
 
 const Home: React.FC = () => {
   return (
     <Background>
       <View>
-        <Text>Home</Text>
+        <Mytext>Home</Mytext>
       </View>
     </Background>
   );

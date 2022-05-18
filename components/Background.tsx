@@ -1,7 +1,7 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, ViewProps} from 'react-native';
 import React, {ReactNode, FC, memo, useContext} from 'react';
 import {ThemeContext, colors} from '../context/Theme/ThemeContextProvider';
-import {
+import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useDerivedValue,
@@ -12,7 +12,7 @@ type BackgroundType = {
   children: ReactNode;
 };
 
-const Background: FC<BackgroundType> = ({children}) => {
+const Background: FC<BackgroundType & ViewProps> = ({children}) => {
   const {theme} = useContext(ThemeContext);
 
   const progress = useDerivedValue(() => {
@@ -22,7 +22,7 @@ const Background: FC<BackgroundType> = ({children}) => {
   const BgStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
       progress.value,
-      [0, 1],
+      [1, 0],
       [colors.dark.background, colors.light.background],
     );
     return {
@@ -30,7 +30,11 @@ const Background: FC<BackgroundType> = ({children}) => {
     };
   });
 
-  return <View style={[styles.container, BgStyle]}>{children}</View>;
+  return (
+    <Animated.View style={[styles.container, BgStyle]}>
+      {children}
+    </Animated.View>
+  );
 };
 
 export default memo(Background);
