@@ -1,23 +1,28 @@
-import React, {createContext, useState, ReactNode, memo} from 'react';
+import React, {createContext, useState, ReactNode} from 'react';
 import {useColorScheme} from 'react-native';
+import {colors} from './Colors';
 
 type Theme = 'dark' | 'light' | null | undefined;
 
 type ThemeContextType = {
   theme: Theme;
-  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+  setTheme: React.Dispatch<React.SetStateAction<Theme>> | null;
 };
 
 type ThemeContextProviderType = {
   children: ReactNode;
 };
+const ThemeContext = createContext<ThemeContextType>({
+  theme: null,
+  setTheme: null,
+});
 
 const ThemeContextProvider: React.FC<ThemeContextProviderType> = ({
   children,
 }) => {
   const color = useColorScheme();
-  const [theme, setTheme] = useState<Theme>(color);
-  const ThemeContext = createContext<ThemeContextType>({theme: null, setTheme});
+  const sanitizedColor = color === null ? 'light' : color;
+  const [theme, setTheme] = useState<Theme>(sanitizedColor);
 
   return (
     <ThemeContext.Provider
@@ -30,4 +35,4 @@ const ThemeContextProvider: React.FC<ThemeContextProviderType> = ({
   );
 };
 
-export default memo(ThemeContextProvider);
+export {ThemeContextProvider, ThemeContext, colors};

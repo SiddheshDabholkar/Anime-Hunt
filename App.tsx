@@ -5,7 +5,7 @@ import Screens from './screens/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {initializeMMKVFlipper} from 'react-native-mmkv-flipper-plugin';
 import {MMKV} from 'react-native-mmkv';
-import ThemeContextProvider from './context/Theme/ThemeContextProvider';
+import {ThemeContextProvider} from './context/Theme/ThemeContextProvider';
 
 export const storage = new MMKV();
 
