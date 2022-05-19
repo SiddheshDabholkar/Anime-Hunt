@@ -1,6 +1,6 @@
 import React, {createContext, useState, ReactNode} from 'react';
 import {useColorScheme} from 'react-native';
-import {colors} from './Colors';
+import {Themes, Mydark, Mylight} from './Themes';
 
 type Theme = 'dark' | 'light' | null | undefined;
 
@@ -35,4 +35,4 @@ const ThemeContextProvider: React.FC<ThemeContextProviderType> = ({
   );
 };
 
-export {ThemeContextProvider, ThemeContext, colors};
+export {ThemeContextProvider, ThemeContext, Themes, Mydark, Mylight};

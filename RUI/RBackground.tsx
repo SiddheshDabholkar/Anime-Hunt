@@ -1,6 +1,6 @@
 import {StyleSheet, ViewProps} from 'react-native';
 import React, {ReactNode, FC, memo, useContext} from 'react';
-import {ThemeContext, colors} from '../context/Theme/ThemeContextProvider';
+import {ThemeContext, Themes} from '../context/Theme/ThemeContextProvider';
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -8,11 +8,11 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-type BackgroundType = {
+type RBackgroundType = {
   children: ReactNode;
 };
 
-const Background: FC<BackgroundType & ViewProps> = ({children}) => {
+const RBackground: FC<RBackgroundType & ViewProps> = ({children}) => {
   const {theme} = useContext(ThemeContext);
 
   const progress = useDerivedValue(() => {
@@ -23,7 +23,7 @@ const Background: FC<BackgroundType & ViewProps> = ({children}) => {
     const backgroundColor = interpolateColor(
       progress.value,
       [1, 0],
-      [colors.dark.background, colors.light.background],
+      [Themes.dark.colors.background, Themes.light.colors.background],
     );
     return {
       backgroundColor,
@@ -37,7 +37,7 @@ const Background: FC<BackgroundType & ViewProps> = ({children}) => {
   );
 };
 
-export default memo(Background);
+export default memo(RBackground);
 
 const styles = StyleSheet.create({
   container: {

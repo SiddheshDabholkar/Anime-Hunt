@@ -1,15 +1,14 @@
 import {View} from 'react-native';
 import React from 'react';
-import Background from '../../components/Background';
-import Mytext from '../../components/Mytext';
+import {Rbackground, Rtext} from '../../RUI';
 
 const Home: React.FC = () => {
   return (
-    <Background>
+    <Rbackground>
       <View>
-        <Mytext>Home</Mytext>
+        <Rtext>Home</Rtext>
       </View>
-    </Background>
+    </Rbackground>
   );
 };
 
