@@ -7,18 +7,21 @@ import {
 import {StyleSheet, View, Text, Image} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import profile from '../../assets/tanjiro.jpeg';
+import {Rswitch} from '../../RUI';
+import RBackground from '../../RUI/RBackground';
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
   const {colors} = useTheme();
   return (
-    <View style={styles.container}>
+    <RBackground>
       <DrawerContentScrollView {...props}>
-        <View style={[styles.Box, {backgroundColor: colors.background}]}>
+        <RBackground style={[styles.Box]}>
           <Image style={[styles.Image]} source={profile} />
-        </View>
+          <Rswitch />
+        </RBackground>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-    </View>
+    </RBackground>
   );
 };
 
@@ -26,16 +29,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  Image: {
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+    marginBottom: 20,
+    alignSelf: 'center',
+  },
   Box: {
     padding: 20,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  Image: {
-    height: 150,
-    width: 150,
-    borderRadius: 75,
   },
 });
 

@@ -1,4 +1,4 @@
-import {StyleSheet, ViewProps} from 'react-native';
+import {StyleProp, StyleSheet, ViewProps, ViewStyle} from 'react-native';
 import React, {ReactNode, FC, memo, useContext} from 'react';
 import {ThemeContext, Themes} from '../context/Theme/ThemeContextProvider';
 import Animated, {
@@ -10,9 +10,10 @@ import Animated, {
 
 type RBackgroundType = {
   children: ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
-const RBackground: FC<RBackgroundType & ViewProps> = ({children}) => {
+const RBackground: FC<RBackgroundType & ViewProps> = ({children, style}) => {
   const {theme} = useContext(ThemeContext);
 
   const progress = useDerivedValue(() => {
@@ -31,7 +32,7 @@ const RBackground: FC<RBackgroundType & ViewProps> = ({children}) => {
   });
 
   return (
-    <Animated.View style={[styles.container, BgStyle]}>
+    <Animated.View style={[styles.container, BgStyle, style]}>
       {children}
     </Animated.View>
   );
@@ -42,5 +43,6 @@ export default memo(RBackground);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    display: 'flex',
   },
 });
