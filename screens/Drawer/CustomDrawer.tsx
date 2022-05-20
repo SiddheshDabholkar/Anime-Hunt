@@ -8,7 +8,7 @@ import {StyleSheet, View, Text, Image} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import profile from '../../assets/tanjiro.jpeg';
 import {Rswitch} from '../../RUI';
-import RBackground from '../../RUI/RBackground';
+import RBackground from '../../RUI/Rbackground';
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
   const {colors} = useTheme();

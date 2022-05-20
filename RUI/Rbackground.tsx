@@ -11,9 +11,16 @@ import Animated, {
 type RBackgroundType = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
+  darkBgColor?: string;
+  lightBgColor?: string;
 };
 
-const RBackground: FC<RBackgroundType & ViewProps> = ({children, style}) => {
+const RBackground: FC<RBackgroundType & ViewProps> = ({
+  children,
+  style,
+  darkBgColor,
+  lightBgColor,
+}) => {
   const {theme} = useContext(ThemeContext);
 
   const progress = useDerivedValue(() => {
@@ -24,7 +31,10 @@ const RBackground: FC<RBackgroundType & ViewProps> = ({children, style}) => {
     const backgroundColor = interpolateColor(
       progress.value,
       [1, 0],
-      [Themes.dark.colors.background, Themes.light.colors.background],
+      [
+        darkBgColor ? darkBgColor : Themes.dark.colors.background,
+        lightBgColor ? lightBgColor : Themes.light.colors.background,
+      ],
     );
     return {
       backgroundColor,

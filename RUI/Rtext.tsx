@@ -1,4 +1,4 @@
-import {TextProps} from 'react-native';
+import {StyleProp, TextProps, TextStyle} from 'react-native';
 import React, {memo, useContext} from 'react';
 import {ThemeContext, Themes} from '../context/Theme/ThemeContextProvider';
 import Animated, {
@@ -10,9 +10,10 @@ import Animated, {
 
 type MytextType = {
   children: React.ReactText;
+  style?: StyleProp<TextStyle>;
 };
 
-const Rtext: React.FC<MytextType & TextProps> = ({children}) => {
+const Rtext: React.FC<MytextType & TextProps> = ({children, style}) => {
   const {theme} = useContext(ThemeContext);
 
   const progress = useDerivedValue(() => {
@@ -30,7 +31,7 @@ const Rtext: React.FC<MytextType & TextProps> = ({children}) => {
     };
   });
 
-  return <Animated.Text style={[rTextStyle]}>{children}</Animated.Text>;
+  return <Animated.Text style={[rTextStyle, style]}>{children}</Animated.Text>;
 };
 
 export default memo(Rtext);

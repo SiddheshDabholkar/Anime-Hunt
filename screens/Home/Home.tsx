@@ -1,13 +1,15 @@
-import {View} from 'react-native';
 import React from 'react';
-import {Rbackground, Rtext} from '../../RUI';
+import {Rbackground} from '../../RUI';
+import Scanner from './Scanner/Scanner';
+import Anime from './Anime/Anime';
+import Manga from './Manga/Manga';
 
 const Home: React.FC = () => {
   return (
     <Rbackground>
-      <View>
-        <Rtext>Home</Rtext>
-      </View>
+      <Scanner />
+      <Anime />
+      <Manga />
     </Rbackground>
   );
 };
