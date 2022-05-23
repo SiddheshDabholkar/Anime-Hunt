@@ -3,4 +3,5 @@ export type RootStack = {
   Onboard: undefined;
   Home: undefined;
   Contact: undefined;
+  Camera: undefined;
 };

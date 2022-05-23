@@ -7,8 +7,12 @@ import {MMKV} from 'react-native-mmkv';
 import {ThemeContextProvider} from './context/Theme/ThemeContextProvider';
 import {initializeMMKVFlipper} from 'react-native-mmkv-flipper-plugin';
 import {QueryClientProvider, QueryClient} from 'react-query';
+import {GraphQLClient} from 'graphql-request';
 
 export const storage = new MMKV();
+export const endPoint = 'https://graphql.anilist.co';
+export const graphqlClient = new GraphQLClient(endPoint);
+const queryClient = new QueryClient();
 
 if (__DEV__) {
   import('react-query-native-devtools').then(({addPlugin}) => {
@@ -16,8 +20,6 @@ if (__DEV__) {
   });
   initializeMMKVFlipper({default: storage});
 }
-
-const queryClient = new QueryClient();
 
 const App: FC = () => {
   return (

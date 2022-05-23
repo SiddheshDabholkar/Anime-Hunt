@@ -12,6 +12,7 @@ import {
   Mydark,
   Mylight,
 } from '../context/Theme/ThemeContextProvider';
+import Camera from './Camera/Camera';
 
 const Stack = createNativeStackNavigator<RootStack>();
 
@@ -34,6 +35,11 @@ const Screens: React.FC = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Camera"
+          component={Camera}
+          options={{headerShown: false}}
+        />
         <Stack.Screen name="Contact" component={Contact} />
       </Stack.Navigator>
     </NavigationContainer>
