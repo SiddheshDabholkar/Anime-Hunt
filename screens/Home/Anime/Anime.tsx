@@ -1,19 +1,11 @@
 import React from 'react';
-import {
-  FlatList,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from 'react-native';
+import {FlatList, TouchableOpacity, View} from 'react-native';
 import {graphqlClient} from '../../../App';
 import {useAnimeListQuery} from '../../../graphql/generated';
 import {Rbackground, Rtext} from '../../../RUI';
 import FastImage from 'react-native-fast-image';
 import {Blurhash} from 'react-native-blurhash';
-
-const {width} = Dimensions.get('screen');
+import {styles} from '../Styles';
 
 const Anime = () => {
   const {data, isLoading, isError} = useAnimeListQuery(graphqlClient);
@@ -21,13 +13,15 @@ const Anime = () => {
 
   return (
     <Rbackground style={[styles.container]}>
-      <Rtext>Anime</Rtext>
+      <Rtext style={[styles.text]} lightTxtColor="#0000ff66">
+        Anime
+      </Rtext>
       <FlatList
         horizontal
         pagingEnabled
         data={!isLoading || !isError ? Details : new Array(5).fill('')}
         renderItem={({item}) => (
-          <View style={[styles.card]}>
+          <TouchableOpacity style={[styles.card]}>
             {!isLoading ? (
               <FastImage
                 resizeMode="cover"
@@ -46,27 +40,11 @@ const Anime = () => {
                 />
               </View>
             )}
-          </View>
+          </TouchableOpacity>
         )}
       />
     </Rbackground>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 12,
-  },
-  card: {
-    width: width / 3,
-    height: 220,
-    margin: 6,
-    overflow: 'hidden',
-  },
-  img: {
-    overflow: 'hidden',
-    borderRadius: 10,
-    flex: 1,
-  },
-});
 export default Anime;

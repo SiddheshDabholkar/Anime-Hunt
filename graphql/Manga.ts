@@ -1,9 +1,13 @@
 import {gql} from 'graphql-request';
 
-export const animelistDocuments = gql`
-  query animeList {
-    Page(page: 1, perPage: 10) {
-      media(type: ANIME, sort: FAVOURITES_DESC) {
+export const mangalistDocuments = gql`
+  query mangaList {
+    Page(page: 10, perPage: 10) {
+      pageInfo {
+        total
+        perPage
+      }
+      media(type: MANGA, sort: FAVOURITES_DESC) {
         id
         title {
           romaji

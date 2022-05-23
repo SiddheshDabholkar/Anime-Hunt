@@ -11,9 +11,16 @@ import Animated, {
 type MytextType = {
   children: React.ReactText;
   style?: StyleProp<TextStyle>;
+  darkTxtColor?: string;
+  lightTxtColor?: string;
 };
 
-const Rtext: React.FC<MytextType & TextProps> = ({children, style}) => {
+const Rtext: React.FC<MytextType & TextProps> = ({
+  children,
+  style,
+  darkTxtColor,
+  lightTxtColor,
+}) => {
   const {theme} = useContext(ThemeContext);
 
   const progress = useDerivedValue(() => {
@@ -24,7 +31,10 @@ const Rtext: React.FC<MytextType & TextProps> = ({children, style}) => {
     const color = interpolateColor(
       progress.value,
       [1, 0],
-      [Themes.dark.colors.text, Themes.light.colors.text],
+      [
+        darkTxtColor ? darkTxtColor : Themes.dark.colors.text,
+        lightTxtColor ? lightTxtColor : Themes.light.colors.text,
+      ],
     );
     return {
       color,
