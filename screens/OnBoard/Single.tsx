@@ -6,6 +6,7 @@ import Animated, {
   useAnimatedStyle,
   Extrapolate,
 } from 'react-native-reanimated';
+import {Rtext} from '../../RUI';
 
 const {height, width} = Dimensions.get('window');
 
@@ -46,8 +47,8 @@ const Single: React.FC<SingleProps> = ({data, translateX, index, img}) => {
   return (
     <Animated.View style={[styles.container]}>
       <Animated.View style={[styles.content]}>
-        <Text style={[styles.title]}>{data.head}</Text>
-        <Text style={[styles.subTitle]}>{data.body}</Text>
+        <Rtext style={[styles.title]}>{data.head}</Rtext>
+        <Rtext style={[styles.subTitle]}>{data.body}</Rtext>
       </Animated.View>
       <Image source={img} style={[styles.image]} />
     </Animated.View>

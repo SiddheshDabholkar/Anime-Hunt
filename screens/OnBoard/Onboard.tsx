@@ -1,7 +1,7 @@
 import React from 'react';
 import {data} from './data';
 import Single from './Single';
-import {View, StyleSheet, Dimensions, Pressable, Text} from 'react-native';
+import {View, StyleSheet, Dimensions, Pressable} from 'react-native';
 import Animated, {
   useAnimatedScrollHandler,
   useDerivedValue,
@@ -9,6 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Pagination from './Pagination';
 import {useNavigation} from '@react-navigation/native';
+import {Rtext} from '../../RUI';
 
 const {width} = Dimensions.get('screen');
 
@@ -58,7 +59,7 @@ export default function Onboard() {
         </View>
         <View>
           <Pressable onPress={onPressSkip} style={styles.button}>
-            <Text style={[styles.buttonText]}>Skip</Text>
+            <Rtext style={[styles.buttonText]}>Skip</Rtext>
           </Pressable>
         </View>
       </View>

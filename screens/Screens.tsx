@@ -1,23 +1,34 @@
 import {RootStack} from '../App.types';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
 import Drawer from './Drawer/Drawer';
 import Onboard from './OnBoard/Onboard';
-import useIsNew from '../hooks/useIsNew';
 import {
   ThemeContext,
   Mydark,
   Mylight,
 } from '../context/Theme/ThemeContextProvider';
 import Camera from './Camera/Camera';
+import {storage} from '../App';
 
 const Stack = createNativeStackNavigator<RootStack>();
 
 const Screens: React.FC = () => {
-  const {isNewUser} = useIsNew();
+  const [isNewUser, setNewUser] = useState(true);
+  useEffect(() => {
+    if (!storage.contains('isNew')) {
+      setNewUser(true);
+      storage.set('isNew', false);
+      console.log(storage.getBoolean('isNew'));
+    } else {
+      setNewUser(false);
+    }
+  }, []);
+  console.log('isNewUser', isNewUser);
+
   const {theme} = useContext(ThemeContext);
   return (
     <NavigationContainer theme={theme === 'dark' ? Mydark : Mylight}>
@@ -34,7 +45,13 @@ const Screens: React.FC = () => {
           component={Drawer}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerLeft: () => <></>,
+          }}
+        />
         <Stack.Screen
           name="Camera"
           component={Camera}
