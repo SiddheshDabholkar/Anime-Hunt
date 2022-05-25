@@ -13,6 +13,8 @@ import {
 } from '../context/Theme/ThemeContextProvider';
 import Camera from './Camera/Camera';
 import {storage} from '../App';
+import MangaPage from './Manga/Manga';
+import AnimePage from './Anime/Anime';
 
 const Stack = createNativeStackNavigator<RootStack>();
 
@@ -58,6 +60,16 @@ const Screens: React.FC = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen name="Contact" component={Contact} />
+        <Stack.Screen
+          name="Manga"
+          component={MangaPage}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Anime"
+          component={AnimePage}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

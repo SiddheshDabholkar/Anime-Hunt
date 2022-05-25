@@ -26,3 +26,47 @@ export const animelistDocuments = gql`
   }
 `;
 
+export const singleAnimeList = gql`
+  query anime($id: Int) {
+    Media(id: $id, type: ANIME) {
+      id
+      title {
+        romaji
+        english
+        native
+      }
+      description
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      episodes
+      seasonInt
+      volumes
+      countryOfOrigin
+      isLicensed
+      source
+      hashtag
+      trailer {
+        id
+      }
+      genres
+      duration
+      chapters
+      bannerImage
+      popularity
+      coverImage {
+        extraLarge
+        large
+        medium
+        color
+      }
+    }
+  }
+`;

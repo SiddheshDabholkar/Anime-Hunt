@@ -1,4 +1,10 @@
-import {StyleProp, StyleSheet, ViewProps, ViewStyle} from 'react-native';
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 import React, {ReactNode, FC, memo, useContext} from 'react';
 import {ThemeContext, Themes} from '../context/Theme/ThemeContextProvider';
 import Animated, {
@@ -7,12 +13,14 @@ import Animated, {
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
+import BackButton from '../components/BackButton';
 
 type RBackgroundType = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
   darkBgColor?: string;
   lightBgColor?: string;
+  goBack?: boolean;
 };
 
 const RBackground: FC<RBackgroundType & ViewProps> = ({
@@ -20,6 +28,7 @@ const RBackground: FC<RBackgroundType & ViewProps> = ({
   style,
   darkBgColor,
   lightBgColor,
+  goBack,
 }) => {
   const {theme} = useContext(ThemeContext);
 
@@ -43,6 +52,7 @@ const RBackground: FC<RBackgroundType & ViewProps> = ({
 
   return (
     <Animated.View style={[styles.container, BgStyle, style]}>
+      {goBack ? <BackButton /> : null}
       {children}
     </Animated.View>
   );

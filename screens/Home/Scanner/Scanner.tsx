@@ -1,4 +1,4 @@
-import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Rbackground, Rtext} from '../../../RUI';
 import FastImage from 'react-native-fast-image';
