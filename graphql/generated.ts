@@ -4609,6 +4609,65 @@ export type AnimeQuery = {
       english?: string | null;
       native?: string | null;
     } | null;
+    characterPreview?: {
+      __typename?: 'CharacterConnection';
+      edges?: Array<{
+        __typename?: 'CharacterEdge';
+        id?: number | null;
+        role?: CharacterRole | null;
+        name?: string | null;
+        voiceActors?: Array<{
+          __typename?: 'Staff';
+          id: number;
+          language?: string | null;
+          name?: {
+            __typename?: 'StaffName';
+            userPreferred?: string | null;
+          } | null;
+          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
+        } | null> | null;
+        node?: {
+          __typename?: 'Character';
+          id: number;
+          name?: {
+            __typename?: 'CharacterName';
+            userPreferred?: string | null;
+          } | null;
+          image?: {__typename?: 'CharacterImage'; large?: string | null} | null;
+        } | null;
+      } | null> | null;
+    } | null;
+    staffPreview?: {
+      __typename?: 'StaffConnection';
+      edges?: Array<{
+        __typename?: 'StaffEdge';
+        id?: number | null;
+        role?: string | null;
+        node?: {
+          __typename?: 'Staff';
+          id: number;
+          language?: string | null;
+          name?: {
+            __typename?: 'StaffName';
+            userPreferred?: string | null;
+          } | null;
+          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
+        } | null;
+      } | null> | null;
+    } | null;
+    studios?: {
+      __typename?: 'StudioConnection';
+      edges?: Array<{
+        __typename?: 'StudioEdge';
+        isMain: boolean;
+        node?: {
+          __typename?: 'Studio';
+          id: number;
+          name: string;
+          siteUrl?: string | null;
+        } | null;
+      } | null> | null;
+    } | null;
     startDate?: {
       __typename?: 'FuzzyDate';
       year?: number | null;
@@ -4718,6 +4777,58 @@ export const AnimeDocument = `
       english
       native
     }
+    characterPreview: characters(perPage: 6, sort: [ROLE, RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        name
+        voiceActors(language: JAPANESE, sort: [RELEVANCE, ID]) {
+          id
+          name {
+            userPreferred
+          }
+          language: languageV2
+          image {
+            large
+          }
+        }
+        node {
+          id
+          name {
+            userPreferred
+          }
+          image {
+            large
+          }
+        }
+      }
+    }
+    staffPreview: staff(perPage: 8, sort: [RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        node {
+          id
+          name {
+            userPreferred
+          }
+          language: languageV2
+          image {
+            large
+          }
+        }
+      }
+    }
+    studios {
+      edges {
+        isMain
+        node {
+          id
+          name
+          siteUrl
+        }
+      }
+    }
     description
     startDate {
       year
@@ -4798,7 +4909,6 @@ export const MangaListDocument = `
   }
 }
     `;
-
 export const useMangaListQuery = <TData = MangaListQuery, TError = unknown>(
   client: GraphQLClient,
   variables?: MangaListQueryVariables,

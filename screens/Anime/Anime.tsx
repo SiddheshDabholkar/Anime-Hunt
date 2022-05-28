@@ -12,7 +12,7 @@ type AnimePageTypes = NativeStackScreenProps<RootStack, 'Anime'>;
 
 const AnimePage: React.FC<AnimePageTypes> = ({route}) => {
   const {id} = route.params;
-  const {data, error, isError, isLoading} = useAnimeQuery(graphqlClient, {id});
+  const {data, isError, isLoading} = useAnimeQuery(graphqlClient, {id});
 
   if (isLoading) {
     return <Rtext>Loading...</Rtext>;
@@ -37,13 +37,17 @@ const AnimePage: React.FC<AnimePageTypes> = ({route}) => {
         </Rtext>
         <Rtext style={styles.otherName}>{AnimeData.title?.english!}</Rtext>
       </View>
-      <FlatList
-        contentContainerStyle={styles.chips}
-        data={AnimeData.genres}
-        renderItem={({item}) => <Rchip text={item!} />}
-      />
       <View>
-        <Rtext>{removeHtmlTags(AnimeData.description!)}</Rtext>
+        <FlatList
+          contentContainerStyle={styles.chips}
+          data={AnimeData.genres}
+          renderItem={({item}) => <Rchip text={item!} />}
+        />
+      </View>
+      <View style={styles.descContainer}>
+        <Rtext style={styles.descText}>
+          {removeHtmlTags(AnimeData.description!).slice(0, 500) + '...'}
+        </Rtext>
       </View>
     </Rbackground>
   );
@@ -67,8 +71,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   infoContainer: {
-    marginTop: 15,
-    marginBottom: 15,
+    marginVertical: 15,
     width: 230,
     alignSelf: 'flex-end',
     textAlign: 'center',
@@ -86,8 +89,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   chips: {
+    marginTop: 10,
     flexDirection: 'row',
     alignSelf: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  descContainer: {
+    flex: 1,
+    padding: 25,
+  },
+  descText: {
+    fontSize: 15,
   },
 });
 

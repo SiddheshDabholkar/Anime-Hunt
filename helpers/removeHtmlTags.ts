@@ -1,3 +1,4 @@
 export const removeHtmlTags = (data: string) => {
-  return data.replace(/<[^>]*>/g, '');
+  const d = data.replace(/<[^>]*>/g, '');
+  return d.replace(/[\r\n]+/gm, '');
 };

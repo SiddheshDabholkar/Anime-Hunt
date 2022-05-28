@@ -1,10 +1,4 @@
-import {
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  ViewProps,
-  ViewStyle,
-} from 'react-native';
+import {StyleProp, StyleSheet, ViewProps, ViewStyle} from 'react-native';
 import React, {ReactNode, FC, memo, useContext} from 'react';
 import {ThemeContext, Themes} from '../context/Theme/ThemeContextProvider';
 import Animated, {

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     minWidth: 'auto',
     alignSelf: 'flex-start',
     flexDirection: 'column',
-    margin: 2,
+    margin: 4,
     marginHorizontal: 5,
   },
   text: {
