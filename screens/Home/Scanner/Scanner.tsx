@@ -5,14 +5,52 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Rbackground, Rtext} from '../../../RUI';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const Scanner = () => {
-  const [filePath, setFilePath] = useState({});
+  const [filePath, setFilePath] = useState();
+  const {navigate} = useNavigation();
+
+  console.log('filePath', filePath);
+
+  const fetchAnimeInfo = () => {
+    if (filePath) {
+      const formData = new FormData();
+      formData.append('image', {
+        uri: filePath?.uri,
+        name: filePath?.fileName,
+        type: 'image/jpeg',
+      });
+      return fetch('https://api.trace.moe/search', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+        .then(res => res.json())
+        .then(res => {
+          console.log('res', res);
+          console.log('res.results[0].anilist', res.result[0].anilist);
+          if (+res.result[0].similarity < 0.8) {
+            alert('try to take clear picture');
+          }
+          navigate('Anime', {id: res.result[0].anilist});
+          setFilePath(undefined);
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (filePath) {
+      fetchAnimeInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filePath]);
 
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -80,12 +118,37 @@ const Scanner = () => {
           alert(response.errorMessage);
           return;
         }
-        setFilePath(response);
+        setFilePath(response.assets[0]);
+        // navigate('Searching');
       });
     }
   };
 
-  const {navigate} = useNavigation();
+  const chooseFile = type => {
+    let options = {
+      mediaType: type,
+      maxWidth: 300,
+      maxHeight: 550,
+      quality: 1,
+    };
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        alert('User cancelled camera picker');
+        return;
+      } else if (response.errorCode == 'camera_unavailable') {
+        alert('Camera not available on device');
+        return;
+      } else if (response.errorCode == 'permission') {
+        alert('Permission not satisfied');
+        return;
+      } else if (response.errorCode == 'others') {
+        alert(response.errorMessage);
+        return;
+      }
+      setFilePath(response.assets[0]);
+    });
+  };
+
   return (
     <Rbackground style={[styles.container]}>
       <Rbackground style={[styles.card]}>
@@ -97,6 +160,7 @@ const Scanner = () => {
         <View style={[styles.content]}>
           <Rtext style={[styles.text]}>Scan the anime</Rtext>
           {/* <TouchableOpacity onPress={() => navigate('Camera')}> */}
+          {/* <TouchableOpacity onPress={() => chooseFile('photo')}> */}
           <TouchableOpacity onPress={() => captureImage('photo')}>
             <FastImage
               style={[styles.icon]}

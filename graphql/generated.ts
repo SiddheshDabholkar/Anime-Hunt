@@ -4697,11 +4697,6 @@ export type MangaListQuery = {
   __typename?: 'Query';
   Page?: {
     __typename?: 'Page';
-    pageInfo?: {
-      __typename?: 'PageInfo';
-      total?: number | null;
-      perPage?: number | null;
-    } | null;
     media?: Array<{
       __typename?: 'Media';
       id: number;
@@ -4724,6 +4719,116 @@ export type MangaListQuery = {
         extraLarge?: string | null;
       } | null;
     } | null> | null;
+  } | null;
+};
+
+export type MangaQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type MangaQuery = {
+  __typename?: 'Query';
+  Media?: {
+    __typename?: 'Media';
+    id: number;
+    description?: string | null;
+    episodes?: number | null;
+    seasonInt?: number | null;
+    volumes?: number | null;
+    countryOfOrigin?: any | null;
+    isLicensed?: boolean | null;
+    source?: MediaSource | null;
+    hashtag?: string | null;
+    genres?: Array<string | null> | null;
+    duration?: number | null;
+    chapters?: number | null;
+    bannerImage?: string | null;
+    popularity?: number | null;
+    title?: {
+      __typename?: 'MediaTitle';
+      romaji?: string | null;
+      english?: string | null;
+      native?: string | null;
+    } | null;
+    characterPreview?: {
+      __typename?: 'CharacterConnection';
+      edges?: Array<{
+        __typename?: 'CharacterEdge';
+        id?: number | null;
+        role?: CharacterRole | null;
+        name?: string | null;
+        voiceActors?: Array<{
+          __typename?: 'Staff';
+          id: number;
+          language?: string | null;
+          name?: {
+            __typename?: 'StaffName';
+            userPreferred?: string | null;
+          } | null;
+          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
+        } | null> | null;
+        node?: {
+          __typename?: 'Character';
+          id: number;
+          name?: {
+            __typename?: 'CharacterName';
+            userPreferred?: string | null;
+          } | null;
+          image?: {__typename?: 'CharacterImage'; large?: string | null} | null;
+        } | null;
+      } | null> | null;
+    } | null;
+    staffPreview?: {
+      __typename?: 'StaffConnection';
+      edges?: Array<{
+        __typename?: 'StaffEdge';
+        id?: number | null;
+        role?: string | null;
+        node?: {
+          __typename?: 'Staff';
+          id: number;
+          language?: string | null;
+          name?: {
+            __typename?: 'StaffName';
+            userPreferred?: string | null;
+          } | null;
+          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
+        } | null;
+      } | null> | null;
+    } | null;
+    studios?: {
+      __typename?: 'StudioConnection';
+      edges?: Array<{
+        __typename?: 'StudioEdge';
+        isMain: boolean;
+        node?: {
+          __typename?: 'Studio';
+          id: number;
+          name: string;
+          siteUrl?: string | null;
+        } | null;
+      } | null> | null;
+    } | null;
+    startDate?: {
+      __typename?: 'FuzzyDate';
+      year?: number | null;
+      month?: number | null;
+      day?: number | null;
+    } | null;
+    endDate?: {
+      __typename?: 'FuzzyDate';
+      year?: number | null;
+      month?: number | null;
+      day?: number | null;
+    } | null;
+    trailer?: {__typename?: 'MediaTrailer'; id?: string | null} | null;
+    coverImage?: {
+      __typename?: 'MediaCoverImage';
+      extraLarge?: string | null;
+      large?: string | null;
+      medium?: string | null;
+      color?: string | null;
+    } | null;
   } | null;
 };
 
@@ -4882,11 +4987,7 @@ export const useAnimeQuery = <TData = AnimeQuery, TError = unknown>(
   );
 export const MangaListDocument = `
     query mangaList {
-  Page(page: 10, perPage: 10) {
-    pageInfo {
-      total
-      perPage
-    }
+  Page(page: 1, perPage: 10) {
     media(type: MANGA, sort: FAVOURITES_DESC) {
       id
       title {
@@ -4920,6 +5021,118 @@ export const useMangaListQuery = <TData = MangaListQuery, TError = unknown>(
     fetcher<MangaListQuery, MangaListQueryVariables>(
       client,
       MangaListDocument,
+      variables,
+      headers,
+    ),
+    options,
+  );
+export const MangaDocument = `
+    query manga($id: Int) {
+  Media(id: $id, type: MANGA) {
+    id
+    title {
+      romaji
+      english
+      native
+    }
+    characterPreview: characters(perPage: 6, sort: [ROLE, RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        name
+        voiceActors(language: JAPANESE, sort: [RELEVANCE, ID]) {
+          id
+          name {
+            userPreferred
+          }
+          language: languageV2
+          image {
+            large
+          }
+        }
+        node {
+          id
+          name {
+            userPreferred
+          }
+          image {
+            large
+          }
+        }
+      }
+    }
+    staffPreview: staff(perPage: 8, sort: [RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        node {
+          id
+          name {
+            userPreferred
+          }
+          language: languageV2
+          image {
+            large
+          }
+        }
+      }
+    }
+    studios {
+      edges {
+        isMain
+        node {
+          id
+          name
+          siteUrl
+        }
+      }
+    }
+    description
+    startDate {
+      year
+      month
+      day
+    }
+    endDate {
+      year
+      month
+      day
+    }
+    episodes
+    seasonInt
+    volumes
+    countryOfOrigin
+    isLicensed
+    source
+    hashtag
+    trailer {
+      id
+    }
+    genres
+    duration
+    chapters
+    bannerImage
+    popularity
+    coverImage {
+      extraLarge
+      large
+      medium
+      color
+    }
+  }
+}
+    `;
+export const useMangaQuery = <TData = MangaQuery, TError = unknown>(
+  client: GraphQLClient,
+  variables?: MangaQueryVariables,
+  options?: UseQueryOptions<MangaQuery, TError, TData>,
+  headers?: RequestInit['headers'],
+) =>
+  useQuery<MangaQuery, TError, TData>(
+    variables === undefined ? ['manga'] : ['manga', variables],
+    fetcher<MangaQuery, MangaQueryVariables>(
+      client,
+      MangaDocument,
       variables,
       headers,
     ),

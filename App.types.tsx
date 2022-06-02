@@ -4,6 +4,7 @@ export type RootStack = {
   Home: undefined;
   Contact: undefined;
   Camera: undefined;
+  Searching: undefined;
   Manga: {
     id: number;
   };
