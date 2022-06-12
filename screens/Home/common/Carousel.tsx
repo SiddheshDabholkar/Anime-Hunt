@@ -1,10 +1,18 @@
 import React from 'react';
-import {FlatList, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  FlatList,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+} from 'react-native';
 import {Rbackground, Rtext, width} from '../../../RUI';
 import {Blurhash} from 'react-native-blurhash';
 import FastImage from 'react-native-fast-image';
 import {AnimeListQuery, MangaListQuery} from '../../../graphql/generated';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStack} from '../../../App.types';
 
 type CarouselType = {
   data: AnimeListQuery | MangaListQuery;
@@ -20,14 +28,21 @@ const Carousel: React.FC<CarouselType> = ({
   title,
 }) => {
   const Details = data?.Page?.media;
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<NativeStackNavigationProp<RootStack>>();
   const isAnime = title === 'Anime';
 
   return (
     <Rbackground style={[styles.container]}>
-      <Rtext style={[styles.text]} lightTxtColor="#0000ff66">
-        {title}
-      </Rtext>
+      <View style={styles.header}>
+        <Rtext style={[styles.text]} lightTxtColor="#0000ff66">
+          {title}
+        </Rtext>
+        <Pressable onPress={() => navigate(`${title}list`)}>
+          <Rtext style={[styles.text]} lightTxtColor="#0000ff66">
+            View All
+          </Rtext>
+        </Pressable>
+      </View>
       <FlatList
         horizontal
         pagingEnabled
@@ -44,11 +59,10 @@ const Carousel: React.FC<CarouselType> = ({
               <FastImage
                 resizeMode="cover"
                 source={{
-                  uri: item?.coverImage.medium,
+                  uri: item?.coverImage.extraLarge!,
                 }}
-                style={[styles.img]}>
-                <Rtext>lol</Rtext>
-              </FastImage>
+                style={[styles.img]}
+              />
             ) : (
               <View style={[styles.img]}>
                 <Blurhash
@@ -84,15 +98,22 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
+    resizeMode: 'cover',
   },
   text: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   top: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  header: {
+    marginVertical: 5,
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
   },
 });

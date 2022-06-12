@@ -1,24 +1,14 @@
-import {GraphQLClient} from 'graphql-request';
-import {RequestInit} from 'graphql-request/dist/types.dom';
-import {useQuery, UseQueryOptions} from 'react-query';
+import { GraphQLClient } from 'graphql-request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends {[key: string]: unknown}> = {[K in keyof T]: T[K]};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 
-function fetcher<TData, TVariables>(
-  client: GraphQLClient,
-  query: string,
-  variables?: TVariables,
-  headers?: RequestInit['headers'],
-) {
-  return async (): Promise<TData> =>
-    client.request<TData, TVariables>(query, variables, headers);
+function fetcher<TData, TVariables>(client: GraphQLClient, query: string, variables?: TVariables, headers?: RequestInit['headers']) {
+  return async (): Promise<TData> => client.request<TData, TVariables>(query, variables, headers);
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -120,6 +110,7 @@ export type ActivityReply = {
   userId?: Maybe<Scalars['Int']>;
 };
 
+
 /** Replay to an activity item */
 export type ActivityReplyTextArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
@@ -192,7 +183,7 @@ export type ActivityReplySubscribedNotification = {
 export enum ActivitySort {
   Id = 'ID',
   IdDesc = 'ID_DESC',
-  Pinned = 'PINNED',
+  Pinned = 'PINNED'
 }
 
 /** Activity type enum. */
@@ -206,7 +197,7 @@ export enum ActivityType {
   /** A text message activity sent to another user */
   Message = 'MESSAGE',
   /** A text activity */
-  Text = 'TEXT',
+  Text = 'TEXT'
 }
 
 /** Activity union type */
@@ -290,7 +281,7 @@ export enum AiringSort {
   MediaId = 'MEDIA_ID',
   MediaIdDesc = 'MEDIA_ID_DESC',
   Time = 'TIME',
-  TimeDesc = 'TIME_DESC',
+  TimeDesc = 'TIME_DESC'
 }
 
 export type AniChartHighlightInput = {
@@ -340,10 +331,12 @@ export type Character = {
   updatedAt?: Maybe<Scalars['Int']>;
 };
 
+
 /** A character that features in an anime or manga */
 export type CharacterDescriptionArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** A character that features in an anime or manga */
 export type CharacterMediaArgs = {
@@ -382,11 +375,13 @@ export type CharacterEdge = {
   voiceActors?: Maybe<Array<Maybe<Staff>>>;
 };
 
+
 /** Character connection edge */
 export type CharacterEdgeVoiceActorRolesArgs = {
   language?: InputMaybe<StaffLanguage>;
   sort?: InputMaybe<Array<InputMaybe<StaffSort>>>;
 };
+
 
 /** Character connection edge */
 export type CharacterEdgeVoiceActorsArgs = {
@@ -446,7 +441,7 @@ export enum CharacterRole {
   /** A primary character role in the media */
   Main = 'MAIN',
   /** A supporting character role in the media */
-  Supporting = 'SUPPORTING',
+  Supporting = 'SUPPORTING'
 }
 
 /** Character sort enums */
@@ -459,7 +454,7 @@ export enum CharacterSort {
   Relevance = 'RELEVANCE',
   Role = 'ROLE',
   RoleDesc = 'ROLE_DESC',
-  SearchMatch = 'SEARCH_MATCH',
+  SearchMatch = 'SEARCH_MATCH'
 }
 
 /** A submission for a character that features in an anime or manga */
@@ -515,13 +510,13 @@ export type Deleted = {
 export enum ExternalLinkMediaType {
   Anime = 'ANIME',
   Manga = 'MANGA',
-  Staff = 'STAFF',
+  Staff = 'STAFF'
 }
 
 export enum ExternalLinkType {
   Info = 'INFO',
   Social = 'SOCIAL',
-  Streaming = 'STREAMING',
+  Streaming = 'STREAMING'
 }
 
 /** User's favourite anime, manga, characters, staff & studios */
@@ -539,11 +534,13 @@ export type Favourites = {
   studios?: Maybe<StudioConnection>;
 };
 
+
 /** User's favourite anime, manga, characters, staff & studios */
 export type FavouritesAnimeArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** User's favourite anime, manga, characters, staff & studios */
 export type FavouritesCharactersArgs = {
@@ -551,17 +548,20 @@ export type FavouritesCharactersArgs = {
   perPage?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** User's favourite anime, manga, characters, staff & studios */
 export type FavouritesMangaArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** User's favourite anime, manga, characters, staff & studios */
 export type FavouritesStaffArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** User's favourite anime, manga, characters, staff & studios */
 export type FavouritesStudiosArgs = {
@@ -656,6 +656,7 @@ export type InternalPage = {
   users?: Maybe<Array<Maybe<User>>>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageActivitiesArgs = {
   createdAt?: InputMaybe<Scalars['Int']>;
@@ -687,11 +688,13 @@ export type InternalPageActivitiesArgs = {
   userId_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageActivityRepliesArgs = {
   activityId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageAiringSchedulesArgs = {
@@ -716,6 +719,7 @@ export type InternalPageAiringSchedulesArgs = {
   sort?: InputMaybe<Array<InputMaybe<AiringSort>>>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageCharacterSubmissionsArgs = {
   assigneeId?: InputMaybe<Scalars['Int']>;
@@ -724,6 +728,7 @@ export type InternalPageCharacterSubmissionsArgs = {
   status?: InputMaybe<SubmissionStatus>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageCharactersArgs = {
@@ -736,11 +741,13 @@ export type InternalPageCharactersArgs = {
   sort?: InputMaybe<Array<InputMaybe<CharacterSort>>>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageFollowersArgs = {
   sort?: InputMaybe<Array<InputMaybe<UserSort>>>;
   userId: Scalars['Int'];
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageFollowingArgs = {
@@ -748,11 +755,13 @@ export type InternalPageFollowingArgs = {
   userId: Scalars['Int'];
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageLikesArgs = {
   likeableId?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<LikeableType>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageMediaArgs = {
@@ -827,6 +836,7 @@ export type InternalPageMediaArgs = {
   volumes_lesser?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageMediaListArgs = {
   compareWithAuthList?: InputMaybe<Scalars['Boolean']>;
@@ -856,6 +866,7 @@ export type InternalPageMediaListArgs = {
   userName?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageMediaSubmissionsArgs = {
   assigneeId?: InputMaybe<Scalars['Int']>;
@@ -866,6 +877,7 @@ export type InternalPageMediaSubmissionsArgs = {
   type?: InputMaybe<MediaType>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageMediaTrendsArgs = {
@@ -896,11 +908,13 @@ export type InternalPageMediaTrendsArgs = {
   trending_not?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageModActionsArgs = {
   modId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageNotificationsArgs = {
@@ -908,6 +922,7 @@ export type InternalPageNotificationsArgs = {
   type?: InputMaybe<NotificationType>;
   type_in?: InputMaybe<Array<InputMaybe<NotificationType>>>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageRecommendationsArgs = {
@@ -922,11 +937,13 @@ export type InternalPageRecommendationsArgs = {
   userId?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageReportsArgs = {
   reportedId?: InputMaybe<Scalars['Int']>;
   reporterId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageReviewsArgs = {
@@ -937,6 +954,7 @@ export type InternalPageReviewsArgs = {
   userId?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageRevisionHistoryArgs = {
   characterId?: InputMaybe<Scalars['Int']>;
@@ -945,6 +963,7 @@ export type InternalPageRevisionHistoryArgs = {
   studioId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageStaffArgs = {
@@ -957,6 +976,7 @@ export type InternalPageStaffArgs = {
   sort?: InputMaybe<Array<InputMaybe<StaffSort>>>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageStaffSubmissionsArgs = {
   assigneeId?: InputMaybe<Scalars['Int']>;
@@ -965,6 +985,7 @@ export type InternalPageStaffSubmissionsArgs = {
   status?: InputMaybe<SubmissionStatus>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageStudiosArgs = {
@@ -976,6 +997,7 @@ export type InternalPageStudiosArgs = {
   sort?: InputMaybe<Array<InputMaybe<StudioSort>>>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageThreadCommentsArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -983,6 +1005,7 @@ export type InternalPageThreadCommentsArgs = {
   threadId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageThreadsArgs = {
@@ -997,10 +1020,12 @@ export type InternalPageThreadsArgs = {
   userId?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data (Used for internal use only) */
 export type InternalPageUserBlockSearchArgs = {
   search?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Page of data (Used for internal use only) */
 export type InternalPageUsersArgs = {
@@ -1016,17 +1041,11 @@ export enum LikeableType {
   Activity = 'ACTIVITY',
   ActivityReply = 'ACTIVITY_REPLY',
   Thread = 'THREAD',
-  ThreadComment = 'THREAD_COMMENT',
+  ThreadComment = 'THREAD_COMMENT'
 }
 
 /** Likeable union type */
-export type LikeableUnion =
-  | ActivityReply
-  | ListActivity
-  | MessageActivity
-  | TextActivity
-  | Thread
-  | ThreadComment;
+export type LikeableUnion = ActivityReply | ListActivity | MessageActivity | TextActivity | Thread | ThreadComment;
 
 /** User list activity (anime & manga updates) */
 export type ListActivity = {
@@ -1202,12 +1221,14 @@ export type Media = {
   volumes?: Maybe<Scalars['Int']>;
 };
 
+
 /** Anime or Manga */
 export type MediaAiringScheduleArgs = {
   notYetAired?: InputMaybe<Scalars['Boolean']>;
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Anime or Manga */
 export type MediaCharactersArgs = {
@@ -1217,10 +1238,12 @@ export type MediaCharactersArgs = {
   sort?: InputMaybe<Array<InputMaybe<CharacterSort>>>;
 };
 
+
 /** Anime or Manga */
 export type MediaDescriptionArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** Anime or Manga */
 export type MediaRecommendationsArgs = {
@@ -1228,6 +1251,7 @@ export type MediaRecommendationsArgs = {
   perPage?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<RecommendationSort>>>;
 };
+
 
 /** Anime or Manga */
 export type MediaReviewsArgs = {
@@ -1237,10 +1261,12 @@ export type MediaReviewsArgs = {
   sort?: InputMaybe<Array<InputMaybe<ReviewSort>>>;
 };
 
+
 /** Anime or Manga */
 export type MediaSourceArgs = {
   version?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Anime or Manga */
 export type MediaStaffArgs = {
@@ -1249,16 +1275,19 @@ export type MediaStaffArgs = {
   sort?: InputMaybe<Array<InputMaybe<StaffSort>>>;
 };
 
+
 /** Anime or Manga */
 export type MediaStatusArgs = {
   version?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Anime or Manga */
 export type MediaStudiosArgs = {
   isMain?: InputMaybe<Scalars['Boolean']>;
   sort?: InputMaybe<Array<InputMaybe<StudioSort>>>;
 };
+
 
 /** Anime or Manga */
 export type MediaTrendsArgs = {
@@ -1371,16 +1400,19 @@ export type MediaEdge = {
   voiceActors?: Maybe<Array<Maybe<Staff>>>;
 };
 
+
 /** Media connection edge */
 export type MediaEdgeRelationTypeArgs = {
   version?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Media connection edge */
 export type MediaEdgeVoiceActorRolesArgs = {
   language?: InputMaybe<StaffLanguage>;
   sort?: InputMaybe<Array<InputMaybe<StaffSort>>>;
 };
+
 
 /** Media connection edge */
 export type MediaEdgeVoiceActorsArgs = {
@@ -1440,7 +1472,7 @@ export enum MediaFormat {
   /** Anime broadcast on television */
   Tv = 'TV',
   /** Anime which are under 15 minutes in length and broadcast on television */
-  TvShort = 'TV_SHORT',
+  TvShort = 'TV_SHORT'
 }
 
 /** List of anime or manga */
@@ -1486,10 +1518,12 @@ export type MediaList = {
   userId: Scalars['Int'];
 };
 
+
 /** List of anime or manga */
 export type MediaListCustomListsArgs = {
   asArray?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** List of anime or manga */
 export type MediaListScoreArgs = {
@@ -1517,10 +1551,12 @@ export type MediaListCollection = {
   user?: Maybe<User>;
 };
 
+
 /** List of anime or manga */
 export type MediaListCollectionCustomListsArgs = {
   asArray?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** List of anime or manga */
 export type MediaListCollectionStatusListsArgs = {
@@ -1610,7 +1646,7 @@ export enum MediaListSort {
   Status = 'STATUS',
   StatusDesc = 'STATUS_DESC',
   UpdatedTime = 'UPDATED_TIME',
-  UpdatedTimeDesc = 'UPDATED_TIME_DESC',
+  UpdatedTimeDesc = 'UPDATED_TIME_DESC'
 }
 
 /** Media list watching/reading status enum. */
@@ -1626,7 +1662,7 @@ export enum MediaListStatus {
   /** Planning to watch/read */
   Planning = 'PLANNING',
   /** Re-watching/reading */
-  Repeating = 'REPEATING',
+  Repeating = 'REPEATING'
 }
 
 /** A user's list options for anime or manga lists */
@@ -1696,7 +1732,7 @@ export enum MediaRankType {
   /** Ranking is based on the media's popularity */
   Popular = 'POPULAR',
   /** Ranking is based on the media's ratings/score */
-  Rated = 'RATED',
+  Rated = 'RATED'
 }
 
 /** Type of relation media has to its parent. */
@@ -1726,7 +1762,7 @@ export enum MediaRelation {
   /** An alternative version of the media with a different primary focus */
   SpinOff = 'SPIN_OFF',
   /** A shortened and summarized version */
-  Summary = 'SUMMARY',
+  Summary = 'SUMMARY'
 }
 
 export enum MediaSeason {
@@ -1737,7 +1773,7 @@ export enum MediaSeason {
   /** Months June to August */
   Summer = 'SUMMER',
   /** Months December to February */
-  Winter = 'WINTER',
+  Winter = 'WINTER'
 }
 
 /** Media sort enums */
@@ -1778,7 +1814,7 @@ export enum MediaSort {
   UpdatedAt = 'UPDATED_AT',
   UpdatedAtDesc = 'UPDATED_AT_DESC',
   Volumes = 'VOLUMES',
-  VolumesDesc = 'VOLUMES_DESC',
+  VolumesDesc = 'VOLUMES_DESC'
 }
 
 /** Source type the media was adapted from */
@@ -1812,7 +1848,7 @@ export enum MediaSource {
   /** Video game driven primary by text and narrative */
   VisualNovel = 'VISUAL_NOVEL',
   /** Version 3 only. Written works published online */
-  WebNovel = 'WEB_NOVEL',
+  WebNovel = 'WEB_NOVEL'
 }
 
 /** A media's statistics */
@@ -1835,7 +1871,7 @@ export enum MediaStatus {
   /** To be released at a later date */
   NotYetReleased = 'NOT_YET_RELEASED',
   /** Currently releasing */
-  Releasing = 'RELEASING',
+  Releasing = 'RELEASING'
 }
 
 /** Data and links to legal streaming episodes on external sites */
@@ -1945,15 +1981,18 @@ export type MediaTitle = {
   userPreferred?: Maybe<Scalars['String']>;
 };
 
+
 /** The official titles of the media in various languages */
 export type MediaTitleEnglishArgs = {
   stylised?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 /** The official titles of the media in various languages */
 export type MediaTitleNativeArgs = {
   stylised?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** The official titles of the media in various languages */
 export type MediaTitleRomajiArgs = {
@@ -2033,7 +2072,7 @@ export enum MediaTrendSort {
   Score = 'SCORE',
   ScoreDesc = 'SCORE_DESC',
   Trending = 'TRENDING',
-  TrendingDesc = 'TRENDING_DESC',
+  TrendingDesc = 'TRENDING_DESC'
 }
 
 /** Media type enum, anime or manga. */
@@ -2041,7 +2080,7 @@ export enum MediaType {
   /** Japanese Anime */
   Anime = 'ANIME',
   /** Asian comic */
-  Manga = 'MANGA',
+  Manga = 'MANGA'
 }
 
 /** User message activity */
@@ -2083,6 +2122,7 @@ export type MessageActivity = {
   type?: Maybe<ActivityType>;
 };
 
+
 /** User message activity */
 export type MessageActivityMessageArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
@@ -2109,7 +2149,7 @@ export enum ModActionType {
   Expire = 'EXPIRE',
   Note = 'NOTE',
   Report = 'REPORT',
-  Reset = 'RESET',
+  Reset = 'RESET'
 }
 
 /** Mod role enums */
@@ -2139,7 +2179,7 @@ export enum ModRole {
   /** A retired moderator */
   Retired = 'RETIRED',
   /** A social media moderator */
-  SocialMedia = 'SOCIAL_MEDIA',
+  SocialMedia = 'SOCIAL_MEDIA'
 }
 
 export type Mutation = {
@@ -2204,39 +2244,48 @@ export type Mutation = {
   UpdateUser?: Maybe<User>;
 };
 
+
 export type MutationDeleteActivityArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type MutationDeleteActivityReplyArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type MutationDeleteCustomListArgs = {
   customList?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<MediaType>;
 };
 
+
 export type MutationDeleteMediaListEntryArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type MutationDeleteReviewArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type MutationDeleteThreadArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type MutationDeleteThreadCommentArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type MutationRateReviewArgs = {
   rating?: InputMaybe<ReviewRating>;
   reviewId?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type MutationSaveActivityReplyArgs = {
   activityId?: InputMaybe<Scalars['Int']>;
@@ -2245,10 +2294,12 @@ export type MutationSaveActivityReplyArgs = {
   text?: InputMaybe<Scalars['String']>;
 };
 
+
 export type MutationSaveListActivityArgs = {
   id?: InputMaybe<Scalars['Int']>;
   locked?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type MutationSaveMediaListEntryArgs = {
   advancedScores?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
@@ -2269,6 +2320,7 @@ export type MutationSaveMediaListEntryArgs = {
   status?: InputMaybe<MediaListStatus>;
 };
 
+
 export type MutationSaveMessageActivityArgs = {
   asMod?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['Int']>;
@@ -2278,11 +2330,13 @@ export type MutationSaveMessageActivityArgs = {
   recipientId?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type MutationSaveRecommendationArgs = {
   mediaId?: InputMaybe<Scalars['Int']>;
   mediaRecommendationId?: InputMaybe<Scalars['Int']>;
   rating?: InputMaybe<RecommendationRating>;
 };
+
 
 export type MutationSaveReviewArgs = {
   body?: InputMaybe<Scalars['String']>;
@@ -2293,11 +2347,13 @@ export type MutationSaveReviewArgs = {
   summary?: InputMaybe<Scalars['String']>;
 };
 
+
 export type MutationSaveTextActivityArgs = {
   id?: InputMaybe<Scalars['Int']>;
   locked?: InputMaybe<Scalars['Boolean']>;
   text?: InputMaybe<Scalars['String']>;
 };
+
 
 export type MutationSaveThreadArgs = {
   body?: InputMaybe<Scalars['String']>;
@@ -2309,6 +2365,7 @@ export type MutationSaveThreadArgs = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+
 export type MutationSaveThreadCommentArgs = {
   comment?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
@@ -2317,15 +2374,18 @@ export type MutationSaveThreadCommentArgs = {
   threadId?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type MutationToggleActivityPinArgs = {
   id?: InputMaybe<Scalars['Int']>;
   pinned?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 export type MutationToggleActivitySubscriptionArgs = {
   activityId?: InputMaybe<Scalars['Int']>;
   subscribe?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type MutationToggleFavouriteArgs = {
   animeId?: InputMaybe<Scalars['Int']>;
@@ -2335,28 +2395,34 @@ export type MutationToggleFavouriteArgs = {
   studioId?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type MutationToggleFollowArgs = {
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type MutationToggleLikeArgs = {
   id?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<LikeableType>;
 };
 
+
 export type MutationToggleLikeV2Args = {
   id?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<LikeableType>;
 };
+
 
 export type MutationToggleThreadSubscriptionArgs = {
   subscribe?: InputMaybe<Scalars['Boolean']>;
   threadId?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type MutationUpdateAniChartHighlightsArgs = {
   highlights?: InputMaybe<Array<InputMaybe<AniChartHighlightInput>>>;
 };
+
 
 export type MutationUpdateAniChartSettingsArgs = {
   outgoingLinkProvider?: InputMaybe<Scalars['String']>;
@@ -2364,6 +2430,7 @@ export type MutationUpdateAniChartSettingsArgs = {
   theme?: InputMaybe<Scalars['String']>;
   titleLanguage?: InputMaybe<Scalars['String']>;
 };
+
 
 export type MutationUpdateFavouriteOrderArgs = {
   animeIds?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
@@ -2377,6 +2444,7 @@ export type MutationUpdateFavouriteOrderArgs = {
   studioIds?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   studioOrder?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
+
 
 export type MutationUpdateMediaListEntriesArgs = {
   advancedScores?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
@@ -2394,6 +2462,7 @@ export type MutationUpdateMediaListEntriesArgs = {
   startedAt?: InputMaybe<FuzzyDateInput>;
   status?: InputMaybe<MediaListStatus>;
 };
+
 
 export type MutationUpdateUserArgs = {
   about?: InputMaybe<Scalars['String']>;
@@ -2466,28 +2535,11 @@ export enum NotificationType {
   /** A user has liked your forum thread */
   ThreadLike = 'THREAD_LIKE',
   /** A user has commented in one of your subscribed forum threads */
-  ThreadSubscribed = 'THREAD_SUBSCRIBED',
+  ThreadSubscribed = 'THREAD_SUBSCRIBED'
 }
 
 /** Notification union type */
-export type NotificationUnion =
-  | ActivityLikeNotification
-  | ActivityMentionNotification
-  | ActivityMessageNotification
-  | ActivityReplyLikeNotification
-  | ActivityReplyNotification
-  | ActivityReplySubscribedNotification
-  | AiringNotification
-  | FollowingNotification
-  | MediaDataChangeNotification
-  | MediaDeletionNotification
-  | MediaMergeNotification
-  | RelatedMediaAdditionNotification
-  | ThreadCommentLikeNotification
-  | ThreadCommentMentionNotification
-  | ThreadCommentReplyNotification
-  | ThreadCommentSubscribedNotification
-  | ThreadLikeNotification;
+export type NotificationUnion = ActivityLikeNotification | ActivityMentionNotification | ActivityMessageNotification | ActivityReplyLikeNotification | ActivityReplyNotification | ActivityReplySubscribedNotification | AiringNotification | FollowingNotification | MediaDataChangeNotification | MediaDeletionNotification | MediaMergeNotification | RelatedMediaAdditionNotification | ThreadCommentLikeNotification | ThreadCommentMentionNotification | ThreadCommentReplyNotification | ThreadCommentSubscribedNotification | ThreadLikeNotification;
 
 /** Page of data */
 export type Page = {
@@ -2513,6 +2565,7 @@ export type Page = {
   threads?: Maybe<Array<Maybe<Thread>>>;
   users?: Maybe<Array<Maybe<User>>>;
 };
+
 
 /** Page of data */
 export type PageActivitiesArgs = {
@@ -2545,11 +2598,13 @@ export type PageActivitiesArgs = {
   userId_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
 
+
 /** Page of data */
 export type PageActivityRepliesArgs = {
   activityId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data */
 export type PageAiringSchedulesArgs = {
@@ -2574,6 +2629,7 @@ export type PageAiringSchedulesArgs = {
   sort?: InputMaybe<Array<InputMaybe<AiringSort>>>;
 };
 
+
 /** Page of data */
 export type PageCharactersArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -2585,11 +2641,13 @@ export type PageCharactersArgs = {
   sort?: InputMaybe<Array<InputMaybe<CharacterSort>>>;
 };
 
+
 /** Page of data */
 export type PageFollowersArgs = {
   sort?: InputMaybe<Array<InputMaybe<UserSort>>>;
   userId: Scalars['Int'];
 };
+
 
 /** Page of data */
 export type PageFollowingArgs = {
@@ -2597,11 +2655,13 @@ export type PageFollowingArgs = {
   userId: Scalars['Int'];
 };
 
+
 /** Page of data */
 export type PageLikesArgs = {
   likeableId?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<LikeableType>;
 };
+
 
 /** Page of data */
 export type PageMediaArgs = {
@@ -2676,6 +2736,7 @@ export type PageMediaArgs = {
   volumes_lesser?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data */
 export type PageMediaListArgs = {
   compareWithAuthList?: InputMaybe<Scalars['Boolean']>;
@@ -2704,6 +2765,7 @@ export type PageMediaListArgs = {
   userId_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   userName?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Page of data */
 export type PageMediaTrendsArgs = {
@@ -2734,12 +2796,14 @@ export type PageMediaTrendsArgs = {
   trending_not?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data */
 export type PageNotificationsArgs = {
   resetNotificationCount?: InputMaybe<Scalars['Boolean']>;
   type?: InputMaybe<NotificationType>;
   type_in?: InputMaybe<Array<InputMaybe<NotificationType>>>;
 };
+
 
 /** Page of data */
 export type PageRecommendationsArgs = {
@@ -2754,6 +2818,7 @@ export type PageRecommendationsArgs = {
   userId?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Page of data */
 export type PageReviewsArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -2762,6 +2827,7 @@ export type PageReviewsArgs = {
   sort?: InputMaybe<Array<InputMaybe<ReviewSort>>>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data */
 export type PageStaffArgs = {
@@ -2774,6 +2840,7 @@ export type PageStaffArgs = {
   sort?: InputMaybe<Array<InputMaybe<StaffSort>>>;
 };
 
+
 /** Page of data */
 export type PageStudiosArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -2784,6 +2851,7 @@ export type PageStudiosArgs = {
   sort?: InputMaybe<Array<InputMaybe<StudioSort>>>;
 };
 
+
 /** Page of data */
 export type PageThreadCommentsArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -2791,6 +2859,7 @@ export type PageThreadCommentsArgs = {
   threadId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data */
 export type PageThreadsArgs = {
@@ -2804,6 +2873,7 @@ export type PageThreadsArgs = {
   subscribed?: InputMaybe<Scalars['Boolean']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 /** Page of data */
 export type PageUsersArgs = {
@@ -2891,6 +2961,7 @@ export type Query = {
   Viewer?: Maybe<User>;
 };
 
+
 export type QueryActivityArgs = {
   createdAt?: InputMaybe<Scalars['Int']>;
   createdAt_greater?: InputMaybe<Scalars['Int']>;
@@ -2921,10 +2992,12 @@ export type QueryActivityArgs = {
   userId_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
 
+
 export type QueryActivityReplyArgs = {
   activityId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type QueryAiringScheduleArgs = {
   airingAt?: InputMaybe<Scalars['Int']>;
@@ -2948,6 +3021,7 @@ export type QueryAiringScheduleArgs = {
   sort?: InputMaybe<Array<InputMaybe<AiringSort>>>;
 };
 
+
 export type QueryCharacterArgs = {
   id?: InputMaybe<Scalars['Int']>;
   id_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
@@ -2958,30 +3032,36 @@ export type QueryCharacterArgs = {
   sort?: InputMaybe<Array<InputMaybe<CharacterSort>>>;
 };
 
+
 export type QueryExternalLinkSourceCollectionArgs = {
   id?: InputMaybe<Scalars['Int']>;
   mediaType?: InputMaybe<ExternalLinkMediaType>;
   type?: InputMaybe<ExternalLinkType>;
 };
 
+
 export type QueryFollowerArgs = {
   sort?: InputMaybe<Array<InputMaybe<UserSort>>>;
   userId: Scalars['Int'];
 };
+
 
 export type QueryFollowingArgs = {
   sort?: InputMaybe<Array<InputMaybe<UserSort>>>;
   userId: Scalars['Int'];
 };
 
+
 export type QueryLikeArgs = {
   likeableId?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<LikeableType>;
 };
 
+
 export type QueryMarkdownArgs = {
   markdown: Scalars['String'];
 };
+
 
 export type QueryMediaArgs = {
   averageScore?: InputMaybe<Scalars['Int']>;
@@ -3055,6 +3135,7 @@ export type QueryMediaArgs = {
   volumes_lesser?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type QueryMediaListArgs = {
   compareWithAuthList?: InputMaybe<Scalars['Boolean']>;
   completedAt?: InputMaybe<Scalars['FuzzyDateInt']>;
@@ -3083,6 +3164,7 @@ export type QueryMediaListArgs = {
   userName?: InputMaybe<Scalars['String']>;
 };
 
+
 export type QueryMediaListCollectionArgs = {
   chunk?: InputMaybe<Scalars['Int']>;
   completedAt?: InputMaybe<Scalars['FuzzyDateInt']>;
@@ -3107,9 +3189,11 @@ export type QueryMediaListCollectionArgs = {
   userName?: InputMaybe<Scalars['String']>;
 };
 
+
 export type QueryMediaTagCollectionArgs = {
   status?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type QueryMediaTrendArgs = {
   averageScore?: InputMaybe<Scalars['Int']>;
@@ -3139,16 +3223,19 @@ export type QueryMediaTrendArgs = {
   trending_not?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type QueryNotificationArgs = {
   resetNotificationCount?: InputMaybe<Scalars['Boolean']>;
   type?: InputMaybe<NotificationType>;
   type_in?: InputMaybe<Array<InputMaybe<NotificationType>>>;
 };
 
+
 export type QueryPageArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type QueryRecommendationArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -3162,6 +3249,7 @@ export type QueryRecommendationArgs = {
   userId?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type QueryReviewArgs = {
   id?: InputMaybe<Scalars['Int']>;
   mediaId?: InputMaybe<Scalars['Int']>;
@@ -3169,6 +3257,7 @@ export type QueryReviewArgs = {
   sort?: InputMaybe<Array<InputMaybe<ReviewSort>>>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type QueryStaffArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -3180,6 +3269,7 @@ export type QueryStaffArgs = {
   sort?: InputMaybe<Array<InputMaybe<StaffSort>>>;
 };
 
+
 export type QueryStudioArgs = {
   id?: InputMaybe<Scalars['Int']>;
   id_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
@@ -3188,6 +3278,7 @@ export type QueryStudioArgs = {
   search?: InputMaybe<Scalars['String']>;
   sort?: InputMaybe<Array<InputMaybe<StudioSort>>>;
 };
+
 
 export type QueryThreadArgs = {
   categoryId?: InputMaybe<Scalars['Int']>;
@@ -3201,12 +3292,14 @@ export type QueryThreadArgs = {
   userId?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type QueryThreadCommentArgs = {
   id?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<ThreadCommentSort>>>;
   threadId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type QueryUserArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -3251,7 +3344,7 @@ export type RecommendationEdge = {
 export enum RecommendationRating {
   NoRating = 'NO_RATING',
   RateDown = 'RATE_DOWN',
-  RateUp = 'RATE_UP',
+  RateUp = 'RATE_UP'
 }
 
 /** Recommendation sort enums */
@@ -3259,7 +3352,7 @@ export enum RecommendationSort {
   Id = 'ID',
   IdDesc = 'ID_DESC',
   Rating = 'RATING',
-  RatingDesc = 'RATING_DESC',
+  RatingDesc = 'RATING_DESC'
 }
 
 /** Notification for when new media is added to the site */
@@ -3327,6 +3420,7 @@ export type Review = {
   userRating?: Maybe<ReviewRating>;
 };
 
+
 /** A Review that features in an anime or manga */
 export type ReviewBodyArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
@@ -3350,7 +3444,7 @@ export type ReviewEdge = {
 export enum ReviewRating {
   DownVote = 'DOWN_VOTE',
   NoVote = 'NO_VOTE',
-  UpVote = 'UP_VOTE',
+  UpVote = 'UP_VOTE'
 }
 
 /** Review sort enums */
@@ -3364,7 +3458,7 @@ export enum ReviewSort {
   Score = 'SCORE',
   ScoreDesc = 'SCORE_DESC',
   UpdatedAt = 'UPDATED_AT',
-  UpdatedAtDesc = 'UPDATED_AT_DESC',
+  UpdatedAtDesc = 'UPDATED_AT_DESC'
 }
 
 /** Feed of mod edit activity */
@@ -3395,7 +3489,7 @@ export type RevisionHistory = {
 /** Revision history actions */
 export enum RevisionHistoryAction {
   Create = 'CREATE',
-  Edit = 'EDIT',
+  Edit = 'EDIT'
 }
 
 /** A user's list score distribution. */
@@ -3417,7 +3511,7 @@ export enum ScoreFormat {
   /** A float from 0-10 with 1 decimal place */
   Point_10Decimal = 'POINT_10_DECIMAL',
   /** An integer from 0-100 */
-  Point_100 = 'POINT_100',
+  Point_100 = 'POINT_100'
 }
 
 export type SiteStatistics = {
@@ -3431,11 +3525,13 @@ export type SiteStatistics = {
   users?: Maybe<SiteTrendConnection>;
 };
 
+
 export type SiteStatisticsAnimeArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<SiteTrendSort>>>;
 };
+
 
 export type SiteStatisticsCharactersArgs = {
   page?: InputMaybe<Scalars['Int']>;
@@ -3443,11 +3539,13 @@ export type SiteStatisticsCharactersArgs = {
   sort?: InputMaybe<Array<InputMaybe<SiteTrendSort>>>;
 };
 
+
 export type SiteStatisticsMangaArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<SiteTrendSort>>>;
 };
+
 
 export type SiteStatisticsReviewsArgs = {
   page?: InputMaybe<Scalars['Int']>;
@@ -3455,17 +3553,20 @@ export type SiteStatisticsReviewsArgs = {
   sort?: InputMaybe<Array<InputMaybe<SiteTrendSort>>>;
 };
 
+
 export type SiteStatisticsStaffArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<SiteTrendSort>>>;
 };
 
+
 export type SiteStatisticsStudiosArgs = {
   page?: InputMaybe<Scalars['Int']>;
   perPage?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<SiteTrendSort>>>;
 };
+
 
 export type SiteStatisticsUsersArgs = {
   page?: InputMaybe<Scalars['Int']>;
@@ -3504,7 +3605,7 @@ export enum SiteTrendSort {
   Count = 'COUNT',
   CountDesc = 'COUNT_DESC',
   Date = 'DATE',
-  DateDesc = 'DATE_DESC',
+  DateDesc = 'DATE_DESC'
 }
 
 /** Voice actors or production staff */
@@ -3567,6 +3668,7 @@ export type Staff = {
   yearsActive?: Maybe<Array<Maybe<Scalars['Int']>>>;
 };
 
+
 /** Voice actors or production staff */
 export type StaffCharacterMediaArgs = {
   onList?: InputMaybe<Scalars['Boolean']>;
@@ -3575,6 +3677,7 @@ export type StaffCharacterMediaArgs = {
   sort?: InputMaybe<Array<InputMaybe<MediaSort>>>;
 };
 
+
 /** Voice actors or production staff */
 export type StaffCharactersArgs = {
   page?: InputMaybe<Scalars['Int']>;
@@ -3582,10 +3685,12 @@ export type StaffCharactersArgs = {
   sort?: InputMaybe<Array<InputMaybe<CharacterSort>>>;
 };
 
+
 /** Voice actors or production staff */
 export type StaffDescriptionArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** Voice actors or production staff */
 export type StaffStaffMediaArgs = {
@@ -3645,7 +3750,7 @@ export enum StaffLanguage {
   /** Portuguese */
   Portuguese = 'PORTUGUESE',
   /** Spanish */
-  Spanish = 'SPANISH',
+  Spanish = 'SPANISH'
 }
 
 /** The names of the staff member */
@@ -3704,7 +3809,7 @@ export enum StaffSort {
   Relevance = 'RELEVANCE',
   Role = 'ROLE',
   RoleDesc = 'ROLE_DESC',
-  SearchMatch = 'SEARCH_MATCH',
+  SearchMatch = 'SEARCH_MATCH'
 }
 
 /** User's staff statistics */
@@ -3768,6 +3873,7 @@ export type Studio = {
   siteUrl?: Maybe<Scalars['String']>;
 };
 
+
 /** Animation or production company */
 export type StudioMediaArgs = {
   isMain?: InputMaybe<Scalars['Boolean']>;
@@ -3805,7 +3911,7 @@ export enum StudioSort {
   IdDesc = 'ID_DESC',
   Name = 'NAME',
   NameDesc = 'NAME_DESC',
-  SearchMatch = 'SEARCH_MATCH',
+  SearchMatch = 'SEARCH_MATCH'
 }
 
 /** User's studio statistics */
@@ -3821,7 +3927,7 @@ export type StudioStats = {
 /** Submission sort enums */
 export enum SubmissionSort {
   Id = 'ID',
-  IdDesc = 'ID_DESC',
+  IdDesc = 'ID_DESC'
 }
 
 /** Submission status */
@@ -3829,7 +3935,7 @@ export enum SubmissionStatus {
   Accepted = 'ACCEPTED',
   PartiallyAccepted = 'PARTIALLY_ACCEPTED',
   Pending = 'PENDING',
-  Rejected = 'REJECTED',
+  Rejected = 'REJECTED'
 }
 
 /** User's tag statistics */
@@ -3876,6 +3982,7 @@ export type TextActivity = {
   /** The user id of the activity's creator */
   userId?: Maybe<Scalars['Int']>;
 };
+
 
 /** User text activity */
 export type TextActivityTextArgs = {
@@ -3931,6 +4038,7 @@ export type Thread = {
   viewCount?: Maybe<Scalars['Int']>;
 };
 
+
 /** Forum Thread */
 export type ThreadBodyArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
@@ -3977,6 +4085,7 @@ export type ThreadComment = {
   /** The user id of the comment's owner */
   userId?: Maybe<Scalars['Int']>;
 };
+
 
 /** Forum Thread Comment */
 export type ThreadCommentCommentArgs = {
@@ -4055,7 +4164,7 @@ export type ThreadCommentReplyNotification = {
 /** Thread comments sort enums */
 export enum ThreadCommentSort {
   Id = 'ID',
-  IdDesc = 'ID_DESC',
+  IdDesc = 'ID_DESC'
 }
 
 /** Notification for when a user replies to a subscribed forum thread */
@@ -4121,7 +4230,7 @@ export enum ThreadSort {
   UpdatedAt = 'UPDATED_AT',
   UpdatedAtDesc = 'UPDATED_AT_DESC',
   ViewCount = 'VIEW_COUNT',
-  ViewCountDesc = 'VIEW_COUNT_DESC',
+  ViewCountDesc = 'VIEW_COUNT_DESC'
 }
 
 /** A user */
@@ -4180,10 +4289,12 @@ export type User = {
   updatedAt?: Maybe<Scalars['Int']>;
 };
 
+
 /** A user */
 export type UserAboutArgs = {
   asHtml?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** A user */
 export type UserFavouritesArgs = {
@@ -4327,7 +4438,7 @@ export enum UserSort {
   Username = 'USERNAME',
   UsernameDesc = 'USERNAME_DESC',
   WatchedTime = 'WATCHED_TIME',
-  WatchedTimeDesc = 'WATCHED_TIME_DESC',
+  WatchedTimeDesc = 'WATCHED_TIME_DESC'
 }
 
 /** The language the user wants to see staff and character names in */
@@ -4337,7 +4448,7 @@ export enum UserStaffNameLanguage {
   /** The romanization of the staff or character's native name */
   Romaji = 'ROMAJI',
   /** The romanization of the staff or character's native name, with western name ordering */
-  RomajiWestern = 'ROMAJI_WESTERN',
+  RomajiWestern = 'ROMAJI_WESTERN'
 }
 
 export type UserStaffStatistic = {
@@ -4389,60 +4500,72 @@ export type UserStatistics = {
   volumesRead: Scalars['Int'];
 };
 
+
 export type UserStatisticsCountriesArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
+
 
 export type UserStatisticsFormatsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
 
+
 export type UserStatisticsGenresArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
+
 
 export type UserStatisticsLengthsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
 
+
 export type UserStatisticsReleaseYearsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
+
 
 export type UserStatisticsScoresArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
 
+
 export type UserStatisticsStaffArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
+
 
 export type UserStatisticsStartYearsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
 
+
 export type UserStatisticsStatusesArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
+
 
 export type UserStatisticsStudiosArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
 
+
 export type UserStatisticsTagsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   sort?: InputMaybe<Array<InputMaybe<UserStatisticsSort>>>;
 };
+
 
 export type UserStatisticsVoiceActorsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -4458,7 +4581,7 @@ export enum UserStatisticsSort {
   MeanScore = 'MEAN_SCORE',
   MeanScoreDesc = 'MEAN_SCORE_DESC',
   Progress = 'PROGRESS',
-  ProgressDesc = 'PROGRESS_DESC',
+  ProgressDesc = 'PROGRESS_DESC'
 }
 
 /** A user's statistics */
@@ -4528,7 +4651,7 @@ export enum UserTitleLanguage {
   /** The romanization of the native language title */
   Romaji = 'ROMAJI',
   /** The romanization of the native language title, stylised by media creator */
-  RomajiStylised = 'ROMAJI_STYLISED',
+  RomajiStylised = 'ROMAJI_STYLISED'
 }
 
 export type UserVoiceActorStatistic = {
@@ -4550,291 +4673,45 @@ export type YearStats = {
   year?: Maybe<Scalars['Int']>;
 };
 
-export type AnimeListQueryVariables = Exact<{[key: string]: never}>;
+export type AnimeListQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']>;
+}>;
 
-export type AnimeListQuery = {
-  __typename?: 'Query';
-  Page?: {
-    __typename?: 'Page';
-    media?: Array<{
-      __typename?: 'Media';
-      id: number;
-      type?: MediaType | null;
-      genres?: Array<string | null> | null;
-      description?: string | null;
-      siteUrl?: string | null;
-      bannerImage?: string | null;
-      title?: {
-        __typename?: 'MediaTitle';
-        romaji?: string | null;
-        english?: string | null;
-        native?: string | null;
-      } | null;
-      coverImage?: {
-        __typename?: 'MediaCoverImage';
-        color?: string | null;
-        medium?: string | null;
-        large?: string | null;
-        extraLarge?: string | null;
-      } | null;
-    } | null> | null;
-  } | null;
-};
+
+export type AnimeListQuery = { __typename?: 'Query', Page?: { __typename?: 'Page', pageInfo?: { __typename?: 'PageInfo', total?: number | null, perPage?: number | null, currentPage?: number | null, lastPage?: number | null, hasNextPage?: boolean | null } | null, media?: Array<{ __typename?: 'Media', id: number, type?: MediaType | null, genres?: Array<string | null> | null, chapters?: number | null, description?: string | null, siteUrl?: string | null, bannerImage?: string | null, title?: { __typename?: 'MediaTitle', romaji?: string | null, english?: string | null, native?: string | null } | null, coverImage?: { __typename?: 'MediaCoverImage', color?: string | null, medium?: string | null, large?: string | null, extraLarge?: string | null } | null } | null> | null } | null };
 
 export type AnimeQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type AnimeQuery = {
-  __typename?: 'Query';
-  Media?: {
-    __typename?: 'Media';
-    id: number;
-    description?: string | null;
-    episodes?: number | null;
-    seasonInt?: number | null;
-    volumes?: number | null;
-    countryOfOrigin?: any | null;
-    isLicensed?: boolean | null;
-    source?: MediaSource | null;
-    hashtag?: string | null;
-    genres?: Array<string | null> | null;
-    duration?: number | null;
-    chapters?: number | null;
-    bannerImage?: string | null;
-    popularity?: number | null;
-    title?: {
-      __typename?: 'MediaTitle';
-      romaji?: string | null;
-      english?: string | null;
-      native?: string | null;
-    } | null;
-    characterPreview?: {
-      __typename?: 'CharacterConnection';
-      edges?: Array<{
-        __typename?: 'CharacterEdge';
-        id?: number | null;
-        role?: CharacterRole | null;
-        name?: string | null;
-        voiceActors?: Array<{
-          __typename?: 'Staff';
-          id: number;
-          language?: string | null;
-          name?: {
-            __typename?: 'StaffName';
-            userPreferred?: string | null;
-          } | null;
-          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
-        } | null> | null;
-        node?: {
-          __typename?: 'Character';
-          id: number;
-          name?: {
-            __typename?: 'CharacterName';
-            userPreferred?: string | null;
-          } | null;
-          image?: {__typename?: 'CharacterImage'; large?: string | null} | null;
-        } | null;
-      } | null> | null;
-    } | null;
-    staffPreview?: {
-      __typename?: 'StaffConnection';
-      edges?: Array<{
-        __typename?: 'StaffEdge';
-        id?: number | null;
-        role?: string | null;
-        node?: {
-          __typename?: 'Staff';
-          id: number;
-          language?: string | null;
-          name?: {
-            __typename?: 'StaffName';
-            userPreferred?: string | null;
-          } | null;
-          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
-        } | null;
-      } | null> | null;
-    } | null;
-    studios?: {
-      __typename?: 'StudioConnection';
-      edges?: Array<{
-        __typename?: 'StudioEdge';
-        isMain: boolean;
-        node?: {
-          __typename?: 'Studio';
-          id: number;
-          name: string;
-          siteUrl?: string | null;
-        } | null;
-      } | null> | null;
-    } | null;
-    startDate?: {
-      __typename?: 'FuzzyDate';
-      year?: number | null;
-      month?: number | null;
-      day?: number | null;
-    } | null;
-    endDate?: {
-      __typename?: 'FuzzyDate';
-      year?: number | null;
-      month?: number | null;
-      day?: number | null;
-    } | null;
-    trailer?: {__typename?: 'MediaTrailer'; id?: string | null} | null;
-    coverImage?: {
-      __typename?: 'MediaCoverImage';
-      extraLarge?: string | null;
-      large?: string | null;
-      medium?: string | null;
-      color?: string | null;
-    } | null;
-  } | null;
-};
 
-export type MangaListQueryVariables = Exact<{[key: string]: never}>;
+export type AnimeQuery = { __typename?: 'Query', Media?: { __typename?: 'Media', id: number, description?: string | null, episodes?: number | null, seasonInt?: number | null, volumes?: number | null, countryOfOrigin?: any | null, isLicensed?: boolean | null, source?: MediaSource | null, hashtag?: string | null, genres?: Array<string | null> | null, duration?: number | null, chapters?: number | null, bannerImage?: string | null, popularity?: number | null, title?: { __typename?: 'MediaTitle', romaji?: string | null, english?: string | null, native?: string | null } | null, characterPreview?: { __typename?: 'CharacterConnection', edges?: Array<{ __typename?: 'CharacterEdge', id?: number | null, role?: CharacterRole | null, name?: string | null, voiceActors?: Array<{ __typename?: 'Staff', id: number, language?: string | null, name?: { __typename?: 'StaffName', userPreferred?: string | null } | null, image?: { __typename?: 'StaffImage', large?: string | null } | null } | null> | null, node?: { __typename?: 'Character', id: number, name?: { __typename?: 'CharacterName', userPreferred?: string | null } | null, image?: { __typename?: 'CharacterImage', large?: string | null } | null } | null } | null> | null } | null, staffPreview?: { __typename?: 'StaffConnection', edges?: Array<{ __typename?: 'StaffEdge', id?: number | null, role?: string | null, node?: { __typename?: 'Staff', id: number, language?: string | null, name?: { __typename?: 'StaffName', userPreferred?: string | null } | null, image?: { __typename?: 'StaffImage', large?: string | null } | null } | null } | null> | null } | null, studios?: { __typename?: 'StudioConnection', edges?: Array<{ __typename?: 'StudioEdge', isMain: boolean, node?: { __typename?: 'Studio', id: number, name: string, siteUrl?: string | null } | null } | null> | null } | null, startDate?: { __typename?: 'FuzzyDate', year?: number | null, month?: number | null, day?: number | null } | null, endDate?: { __typename?: 'FuzzyDate', year?: number | null, month?: number | null, day?: number | null } | null, trailer?: { __typename?: 'MediaTrailer', id?: string | null } | null, coverImage?: { __typename?: 'MediaCoverImage', extraLarge?: string | null, large?: string | null, medium?: string | null, color?: string | null } | null } | null };
 
-export type MangaListQuery = {
-  __typename?: 'Query';
-  Page?: {
-    __typename?: 'Page';
-    media?: Array<{
-      __typename?: 'Media';
-      id: number;
-      type?: MediaType | null;
-      genres?: Array<string | null> | null;
-      description?: string | null;
-      siteUrl?: string | null;
-      bannerImage?: string | null;
-      title?: {
-        __typename?: 'MediaTitle';
-        romaji?: string | null;
-        english?: string | null;
-        native?: string | null;
-      } | null;
-      coverImage?: {
-        __typename?: 'MediaCoverImage';
-        color?: string | null;
-        medium?: string | null;
-        large?: string | null;
-        extraLarge?: string | null;
-      } | null;
-    } | null> | null;
-  } | null;
-};
+export type MangaListQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type MangaListQuery = { __typename?: 'Query', Page?: { __typename?: 'Page', pageInfo?: { __typename?: 'PageInfo', total?: number | null, perPage?: number | null, currentPage?: number | null, lastPage?: number | null, hasNextPage?: boolean | null } | null, media?: Array<{ __typename?: 'Media', id: number, type?: MediaType | null, genres?: Array<string | null> | null, description?: string | null, siteUrl?: string | null, bannerImage?: string | null, title?: { __typename?: 'MediaTitle', romaji?: string | null, english?: string | null, native?: string | null } | null, coverImage?: { __typename?: 'MediaCoverImage', color?: string | null, medium?: string | null, large?: string | null, extraLarge?: string | null } | null } | null> | null } | null };
 
 export type MangaQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type MangaQuery = {
-  __typename?: 'Query';
-  Media?: {
-    __typename?: 'Media';
-    id: number;
-    description?: string | null;
-    episodes?: number | null;
-    seasonInt?: number | null;
-    volumes?: number | null;
-    countryOfOrigin?: any | null;
-    isLicensed?: boolean | null;
-    source?: MediaSource | null;
-    hashtag?: string | null;
-    genres?: Array<string | null> | null;
-    duration?: number | null;
-    chapters?: number | null;
-    bannerImage?: string | null;
-    popularity?: number | null;
-    title?: {
-      __typename?: 'MediaTitle';
-      romaji?: string | null;
-      english?: string | null;
-      native?: string | null;
-    } | null;
-    characterPreview?: {
-      __typename?: 'CharacterConnection';
-      edges?: Array<{
-        __typename?: 'CharacterEdge';
-        id?: number | null;
-        role?: CharacterRole | null;
-        name?: string | null;
-        voiceActors?: Array<{
-          __typename?: 'Staff';
-          id: number;
-          language?: string | null;
-          name?: {
-            __typename?: 'StaffName';
-            userPreferred?: string | null;
-          } | null;
-          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
-        } | null> | null;
-        node?: {
-          __typename?: 'Character';
-          id: number;
-          name?: {
-            __typename?: 'CharacterName';
-            userPreferred?: string | null;
-          } | null;
-          image?: {__typename?: 'CharacterImage'; large?: string | null} | null;
-        } | null;
-      } | null> | null;
-    } | null;
-    staffPreview?: {
-      __typename?: 'StaffConnection';
-      edges?: Array<{
-        __typename?: 'StaffEdge';
-        id?: number | null;
-        role?: string | null;
-        node?: {
-          __typename?: 'Staff';
-          id: number;
-          language?: string | null;
-          name?: {
-            __typename?: 'StaffName';
-            userPreferred?: string | null;
-          } | null;
-          image?: {__typename?: 'StaffImage'; large?: string | null} | null;
-        } | null;
-      } | null> | null;
-    } | null;
-    studios?: {
-      __typename?: 'StudioConnection';
-      edges?: Array<{
-        __typename?: 'StudioEdge';
-        isMain: boolean;
-        node?: {
-          __typename?: 'Studio';
-          id: number;
-          name: string;
-          siteUrl?: string | null;
-        } | null;
-      } | null> | null;
-    } | null;
-    startDate?: {
-      __typename?: 'FuzzyDate';
-      year?: number | null;
-      month?: number | null;
-      day?: number | null;
-    } | null;
-    endDate?: {
-      __typename?: 'FuzzyDate';
-      year?: number | null;
-      month?: number | null;
-      day?: number | null;
-    } | null;
-    trailer?: {__typename?: 'MediaTrailer'; id?: string | null} | null;
-    coverImage?: {
-      __typename?: 'MediaCoverImage';
-      extraLarge?: string | null;
-      large?: string | null;
-      medium?: string | null;
-      color?: string | null;
-    } | null;
-  } | null;
-};
+
+export type MangaQuery = { __typename?: 'Query', Media?: { __typename?: 'Media', id: number, description?: string | null, episodes?: number | null, seasonInt?: number | null, volumes?: number | null, countryOfOrigin?: any | null, isLicensed?: boolean | null, source?: MediaSource | null, hashtag?: string | null, genres?: Array<string | null> | null, duration?: number | null, chapters?: number | null, bannerImage?: string | null, popularity?: number | null, title?: { __typename?: 'MediaTitle', romaji?: string | null, english?: string | null, native?: string | null } | null, characterPreview?: { __typename?: 'CharacterConnection', edges?: Array<{ __typename?: 'CharacterEdge', id?: number | null, role?: CharacterRole | null, name?: string | null, voiceActors?: Array<{ __typename?: 'Staff', id: number, language?: string | null, name?: { __typename?: 'StaffName', userPreferred?: string | null } | null, image?: { __typename?: 'StaffImage', large?: string | null } | null } | null> | null, node?: { __typename?: 'Character', id: number, name?: { __typename?: 'CharacterName', userPreferred?: string | null } | null, image?: { __typename?: 'CharacterImage', large?: string | null } | null } | null } | null> | null } | null, staffPreview?: { __typename?: 'StaffConnection', edges?: Array<{ __typename?: 'StaffEdge', id?: number | null, role?: string | null, node?: { __typename?: 'Staff', id: number, language?: string | null, name?: { __typename?: 'StaffName', userPreferred?: string | null } | null, image?: { __typename?: 'StaffImage', large?: string | null } | null } | null } | null> | null } | null, studios?: { __typename?: 'StudioConnection', edges?: Array<{ __typename?: 'StudioEdge', isMain: boolean, node?: { __typename?: 'Studio', id: number, name: string, siteUrl?: string | null } | null } | null> | null } | null, startDate?: { __typename?: 'FuzzyDate', year?: number | null, month?: number | null, day?: number | null } | null, endDate?: { __typename?: 'FuzzyDate', year?: number | null, month?: number | null, day?: number | null } | null, trailer?: { __typename?: 'MediaTrailer', id?: string | null } | null, coverImage?: { __typename?: 'MediaCoverImage', extraLarge?: string | null, large?: string | null, medium?: string | null, color?: string | null } | null } | null };
+
 
 export const AnimeListDocument = `
-    query animeList {
-  Page(page: 1, perPage: 10) {
+    query animeList($page: Int = 1) {
+  Page(page: $page, perPage: 10) {
+    pageInfo {
+      total
+      perPage
+      currentPage
+      lastPage
+      hasNextPage
+    }
     media(type: ANIME, sort: FAVOURITES_DESC) {
       id
       title {
@@ -4844,6 +4721,7 @@ export const AnimeListDocument = `
       }
       type
       genres
+      chapters
       description
       coverImage {
         color
@@ -4857,22 +4735,36 @@ export const AnimeListDocument = `
   }
 }
     `;
-export const useAnimeListQuery = <TData = AnimeListQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables?: AnimeListQueryVariables,
-  options?: UseQueryOptions<AnimeListQuery, TError, TData>,
-  headers?: RequestInit['headers'],
-) =>
-  useQuery<AnimeListQuery, TError, TData>(
-    variables === undefined ? ['animeList'] : ['animeList', variables],
-    fetcher<AnimeListQuery, AnimeListQueryVariables>(
-      client,
-      AnimeListDocument,
-      variables,
-      headers,
-    ),
-    options,
-  );
+export const useAnimeListQuery = <
+      TData = AnimeListQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: AnimeListQueryVariables,
+      options?: UseQueryOptions<AnimeListQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<AnimeListQuery, TError, TData>(
+      variables === undefined ? ['animeList'] : ['animeList', variables],
+      fetcher<AnimeListQuery, AnimeListQueryVariables>(client, AnimeListDocument, variables, headers),
+      options
+    );
+export const useInfiniteAnimeListQuery = <
+      TData = AnimeListQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof AnimeListQueryVariables,
+      client: GraphQLClient,
+      variables?: AnimeListQueryVariables,
+      options?: UseInfiniteQueryOptions<AnimeListQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<AnimeListQuery, TError, TData>(
+      variables === undefined ? ['animeList.infinite'] : ['animeList.infinite', variables],
+      (metaData) => fetcher<AnimeListQuery, AnimeListQueryVariables>(client, AnimeListDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
 export const AnimeDocument = `
     query anime($id: Int) {
   Media(id: $id, type: ANIME) {
@@ -4969,25 +4861,46 @@ export const AnimeDocument = `
   }
 }
     `;
-export const useAnimeQuery = <TData = AnimeQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables?: AnimeQueryVariables,
-  options?: UseQueryOptions<AnimeQuery, TError, TData>,
-  headers?: RequestInit['headers'],
-) =>
-  useQuery<AnimeQuery, TError, TData>(
-    variables === undefined ? ['anime'] : ['anime', variables],
-    fetcher<AnimeQuery, AnimeQueryVariables>(
-      client,
-      AnimeDocument,
-      variables,
-      headers,
-    ),
-    options,
-  );
+export const useAnimeQuery = <
+      TData = AnimeQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: AnimeQueryVariables,
+      options?: UseQueryOptions<AnimeQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<AnimeQuery, TError, TData>(
+      variables === undefined ? ['anime'] : ['anime', variables],
+      fetcher<AnimeQuery, AnimeQueryVariables>(client, AnimeDocument, variables, headers),
+      options
+    );
+export const useInfiniteAnimeQuery = <
+      TData = AnimeQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof AnimeQueryVariables,
+      client: GraphQLClient,
+      variables?: AnimeQueryVariables,
+      options?: UseInfiniteQueryOptions<AnimeQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<AnimeQuery, TError, TData>(
+      variables === undefined ? ['anime.infinite'] : ['anime.infinite', variables],
+      (metaData) => fetcher<AnimeQuery, AnimeQueryVariables>(client, AnimeDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
 export const MangaListDocument = `
-    query mangaList {
-  Page(page: 1, perPage: 10) {
+    query mangaList($page: Int = 1) {
+  Page(page: $page, perPage: 10) {
+    pageInfo {
+      total
+      perPage
+      currentPage
+      lastPage
+      hasNextPage
+    }
     media(type: MANGA, sort: FAVOURITES_DESC) {
       id
       title {
@@ -5010,22 +4923,36 @@ export const MangaListDocument = `
   }
 }
     `;
-export const useMangaListQuery = <TData = MangaListQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables?: MangaListQueryVariables,
-  options?: UseQueryOptions<MangaListQuery, TError, TData>,
-  headers?: RequestInit['headers'],
-) =>
-  useQuery<MangaListQuery, TError, TData>(
-    variables === undefined ? ['mangaList'] : ['mangaList', variables],
-    fetcher<MangaListQuery, MangaListQueryVariables>(
-      client,
-      MangaListDocument,
-      variables,
-      headers,
-    ),
-    options,
-  );
+export const useMangaListQuery = <
+      TData = MangaListQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: MangaListQueryVariables,
+      options?: UseQueryOptions<MangaListQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<MangaListQuery, TError, TData>(
+      variables === undefined ? ['mangaList'] : ['mangaList', variables],
+      fetcher<MangaListQuery, MangaListQueryVariables>(client, MangaListDocument, variables, headers),
+      options
+    );
+export const useInfiniteMangaListQuery = <
+      TData = MangaListQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof MangaListQueryVariables,
+      client: GraphQLClient,
+      variables?: MangaListQueryVariables,
+      options?: UseInfiniteQueryOptions<MangaListQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<MangaListQuery, TError, TData>(
+      variables === undefined ? ['mangaList.infinite'] : ['mangaList.infinite', variables],
+      (metaData) => fetcher<MangaListQuery, MangaListQueryVariables>(client, MangaListDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
 export const MangaDocument = `
     query manga($id: Int) {
   Media(id: $id, type: MANGA) {
@@ -5122,19 +5049,32 @@ export const MangaDocument = `
   }
 }
     `;
-export const useMangaQuery = <TData = MangaQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables?: MangaQueryVariables,
-  options?: UseQueryOptions<MangaQuery, TError, TData>,
-  headers?: RequestInit['headers'],
-) =>
-  useQuery<MangaQuery, TError, TData>(
-    variables === undefined ? ['manga'] : ['manga', variables],
-    fetcher<MangaQuery, MangaQueryVariables>(
-      client,
-      MangaDocument,
-      variables,
-      headers,
-    ),
-    options,
-  );
+export const useMangaQuery = <
+      TData = MangaQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: MangaQueryVariables,
+      options?: UseQueryOptions<MangaQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<MangaQuery, TError, TData>(
+      variables === undefined ? ['manga'] : ['manga', variables],
+      fetcher<MangaQuery, MangaQueryVariables>(client, MangaDocument, variables, headers),
+      options
+    );
+export const useInfiniteMangaQuery = <
+      TData = MangaQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof MangaQueryVariables,
+      client: GraphQLClient,
+      variables?: MangaQueryVariables,
+      options?: UseInfiniteQueryOptions<MangaQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<MangaQuery, TError, TData>(
+      variables === undefined ? ['manga.infinite'] : ['manga.infinite', variables],
+      (metaData) => fetcher<MangaQuery, MangaQueryVariables>(client, MangaDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );

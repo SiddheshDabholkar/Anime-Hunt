@@ -7,4 +7,5 @@ generates:
       - typescript-operations
       - typescript-react-query
     config:
+      addInfiniteQuery: true
       fetcher: graphql-request

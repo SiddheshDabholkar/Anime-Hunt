@@ -46,7 +46,7 @@ const AnimePage: React.FC<AnimePageTypes> = ({route}) => {
       </View>
       <View style={styles.descContainer}>
         <Rtext style={styles.descText}>
-          {removeHtmlTags(AnimeData.description!).slice(0, 500) + '...'}
+          {removeHtmlTags(AnimeData.description!, 500)}
         </Rtext>
       </View>
     </Rbackground>

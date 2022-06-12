@@ -1,8 +1,15 @@
 import {gql} from 'graphql-request';
 
 export const animelistDocuments = gql`
-  query animeList {
-    Page(page: 1, perPage: 10) {
+  query animeList($page: Int = 1) {
+    Page(page: $page, perPage: 10) {
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
       media(type: ANIME, sort: FAVOURITES_DESC) {
         id
         title {
@@ -12,6 +19,7 @@ export const animelistDocuments = gql`
         }
         type
         genres
+        chapters
         description
         coverImage {
           color

@@ -30,7 +30,7 @@ const MangaPage: React.FC<MangaPageTypes> = ({route}) => {
       <FastImage
         style={styles.cover}
         resizeMode="cover"
-        source={{uri: MangaData.coverImage?.medium!}}
+        source={{uri: MangaData.coverImage?.extraLarge!}}
       />
       <View style={styles.Bottom}>
         <View style={styles.titleCont}>

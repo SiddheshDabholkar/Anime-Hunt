@@ -16,6 +16,8 @@ import {storage} from '../App';
 import MangaPage from './Manga/Manga';
 import AnimePage from './Anime/Anime';
 import Searching from './Searching/Searching';
+import Mangalist from './MangaList/Mangalist';
+import Animelist from './AnimeList/Animelist';
 
 const Stack = createNativeStackNavigator<RootStack>();
 
@@ -62,6 +64,8 @@ const Screens: React.FC = () => {
         />
         <Stack.Screen name="Contact" component={Contact} />
         <Stack.Screen name="Searching" component={Searching} />
+        <Stack.Screen name="Animelist" component={Animelist} />
+        <Stack.Screen name="Mangalist" component={Mangalist} />
         <Stack.Screen
           name="Manga"
           component={MangaPage}

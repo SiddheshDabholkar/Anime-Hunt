@@ -1,8 +1,15 @@
 import {gql} from 'graphql-request';
 
 export const mangalistDocuments = gql`
-  query mangaList {
-    Page(page: 1, perPage: 10) {
+  query mangaList($page: Int = 1) {
+    Page(page: $page, perPage: 10) {
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
       media(type: MANGA, sort: FAVOURITES_DESC) {
         id
         title {
