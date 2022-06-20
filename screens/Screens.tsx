@@ -32,7 +32,6 @@ const Screens: React.FC = () => {
       setNewUser(false);
     }
   }, []);
-  console.log('isNewUser', isNewUser);
 
   const {theme} = useContext(ThemeContext);
   return (
