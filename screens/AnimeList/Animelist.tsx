@@ -26,22 +26,25 @@ const Animelist = () => {
           setPage(page + 1);
         }}
         contentContainerStyle={styles.container}
-        renderItem={({item}) => (
-          <FlatList
-            data={item.Page?.media}
-            // eslint-disable-next-line @typescript-eslint/no-shadow
-            renderItem={({item}) => (
-              <Card
-                id={item?.id!}
-                type="Anime"
-                coverImage={item?.coverImage?.extraLarge!}
-                title={item?.title?.english!}
-                titleNative={item?.title?.native!}
-                description={item?.description!}
-              />
-            )}
-          />
-        )}
+        renderItem={({item}) => {
+          // console.log('item', item);
+          return (
+            <FlatList
+              data={item.Page?.media}
+              // eslint-disable-next-line @typescript-eslint/no-shadow
+              renderItem={({item}) => (
+                <Card
+                  id={item?.id!}
+                  type="Anime"
+                  coverImage={item?.coverImage?.extraLarge!}
+                  title={item?.title?.english!}
+                  titleNative={item?.title?.native!}
+                  description={item?.description!}
+                />
+              )}
+            />
+          );
+        }}
       />
     </Rbackground>
   );

@@ -56,13 +56,13 @@ const Screens: React.FC = () => {
             headerLeft: () => <></>,
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Camera"
           component={Camera}
           options={{headerShown: false}}
         />
         <Stack.Screen name="Contact" component={Contact} />
-        <Stack.Screen name="Searching" component={Searching} />
+        <Stack.Screen name="Searching" component={Searching} /> */}
         <Stack.Screen name="Animelist" component={Animelist} />
         <Stack.Screen name="Mangalist" component={Mangalist} />
         <Stack.Screen

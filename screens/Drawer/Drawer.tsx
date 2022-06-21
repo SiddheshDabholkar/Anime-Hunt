@@ -15,7 +15,7 @@ export default function Drawer() {
       initialRouteName="Home"
       drawerContent={props => <CustomDrawer {...props} />}>
       <Draw.Screen name="Home" component={Home} />
-      <Draw.Screen name="Contact" component={Contact} />
+      {/* <Draw.Screen name="Contact" component={Contact} /> */}
       <Draw.Screen name="Animelist" component={Animelist} />
       <Draw.Screen name="Mangalist" component={Mangalist} />
     </Draw.Navigator>
